@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   validates :password, presence: true, on: :create
   validates :password, confirmation: true
 
+  validates :password_confirmation, presence: true,
+    unless: -> (u) { u.password.blank? }
+
   before_validation :normalize_username
 
   # Returns a user found by auth token or nil

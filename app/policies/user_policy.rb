@@ -19,6 +19,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:username, :email, :password, :password_confirmation]
+    if record.persisted?
+      [:email, :password, :password_confirmation]
+    else
+      [:username, :email, :password, :password_confirmation]
+    end
   end
 end
