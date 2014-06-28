@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     resources :baskets do
       resources :comments
+      resource  :photo, only: [:show, :create, :update, :destroy]
     end
   end
 end

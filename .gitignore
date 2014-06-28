@@ -18,6 +18,10 @@
 # Ignore .env
 /.env
 
+# Ignore uploads
+/public/uploads
+/public/photos
+
 # Ignore Vim files
 *.swp
 *.swo

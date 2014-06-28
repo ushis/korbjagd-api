@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   private
 
   # Renders a error response
-  def render_error(status, errors=[])
+  def render_error(status, errors={})
     msg = Rack::Utils::HTTP_STATUS_CODES[status]
     render json: { error: msg, details: errors }, status: status
   end

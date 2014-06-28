@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626101333) do
+ActiveRecord::Schema.define(version: 20140628122633) do
 
   create_table "baskets", force: true do |t|
     t.integer  "user_id",                    null: false
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 20140626101333) do
 
   add_index "comments", ["basket_id"], name: "index_comments_on_basket_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "photos", force: true do |t|
+    t.integer  "basket_id",  null: false
+    t.string   "filename",   null: false
+    t.string   "image",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["basket_id"], name: "index_photos_on_basket_id"
 
   create_table "users", force: true do |t|
     t.string   "username",        null: false

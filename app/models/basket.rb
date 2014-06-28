@@ -1,6 +1,8 @@
 class Basket < ActiveRecord::Base
   belongs_to :user, inverse_of: :baskets
 
+  has_one :photo, inverse_of: :basket, dependent: :destroy
+
   has_many :comments, inverse_of: :basket, dependent: :destroy
 
   has_and_belongs_to_many :categories, inverse_of: :baskets
@@ -23,5 +25,10 @@ class Basket < ActiveRecord::Base
   # Assigns categories to the basket
   def category_ids=(ids)
     self.categories = Category.where(id: ids)
+  end
+
+  # Returns the photo of the basket or initializes a new one
+  def photo
+    super || build_photo
   end
 end
