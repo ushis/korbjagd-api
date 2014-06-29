@@ -8,6 +8,7 @@ gem 'jwt'
 gem 'pundit'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
+gem 'dotenv-rails'
 
 group :production do
   gem 'pg'
@@ -16,5 +17,4 @@ end
 group :development, :test do
   gem 'spring'
   gem 'sqlite3'
-  gem 'dotenv-rails'
 end
