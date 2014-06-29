@@ -6,7 +6,7 @@ class V1::CommentsController < V1::ApplicationController
 
   # GET /v1/baskets/:basket_id/comments
   def index
-    @comments = policy_scope(@basket.comments).includes(:user)
+    @comments = policy_scope(@basket.comments).includes(user: :avatar)
     render json: @comments
   end
 

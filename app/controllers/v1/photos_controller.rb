@@ -45,7 +45,7 @@ class V1::PhotosController < V1::ApplicationController
 
   # Finds the requested photo
   def find_photo
-    @photo = (@basket.photo)
+    @photo = @basket.photo
     authorize @photo
   end
 

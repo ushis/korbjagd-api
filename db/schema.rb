@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140628122633) do
+ActiveRecord::Schema.define(version: 20140628204027) do
+
+  create_table "avatars", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "filename",   null: false
+    t.string   "image",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "avatars", ["user_id"], name: "index_avatars_on_user_id"
 
   create_table "baskets", force: true do |t|
     t.integer  "user_id",                    null: false

@@ -1,4 +1,4 @@
-class PhotoSerializer < ActiveModel::Serializer
+class AvatarSerializer < ActiveModel::Serializer
   attributes :id, :urls, :created_at, :updated_at
 
   def urls

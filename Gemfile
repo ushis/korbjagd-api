@@ -9,6 +9,10 @@ gem 'pundit'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 3.7.0'
 
+group :production do
+  gem 'pg'
+end
+
 group :development, :test do
   gem 'spring'
   gem 'sqlite3'

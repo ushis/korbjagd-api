@@ -1,7 +1,7 @@
 class V1::BasketsController < V1::ApplicationController
   skip_before_action :authenticate, only: [:index, :show]
 
-  before_action :find_basket, only: [:show, :update, :delete]
+  before_action :find_basket, only: [:show, :update, :destroy]
 
   # GET /v1/baskets
   def index
@@ -10,7 +10,7 @@ class V1::BasketsController < V1::ApplicationController
     render json: @baskets,
       each_serializer: BasketsSerializer,
       meta_key: :params,
-      meta: bounds
+      meta: {bounds: bounds}
   end
 
   # GET /v1/baskets/:id

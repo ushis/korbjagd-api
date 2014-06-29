@@ -3,7 +3,10 @@ Rails.application.routes.draw do
     resource  :profile,    only: [:show, :update, :destroy]
     resources :sessions,   only: [:create]
     resources :categories, only: [:index]
-    resources :users
+
+    resources :users do
+      resource :avatar, only: [:show, :create, :update, :destroy]
+    end
 
     resources :baskets do
       resources :comments

@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :avatar, inverse_of: :user, dependent: :destroy
+
   has_many :baskets,  inverse_of: :user
   has_many :comments, inverse_of: :user, dependent: :destroy
 
@@ -29,6 +31,11 @@ class User < ActiveRecord::Base
   # Returns a new auth token for the user
   def auth_token
     AuthToken.for(self).to_s
+  end
+
+  # Returns the users avatar and buils a new one if necessary
+  def avatar
+    super || build_avatar
   end
 
   private
