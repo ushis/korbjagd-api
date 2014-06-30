@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20140628204027) do
     t.string   "email",                           null: false
     t.string   "password_digest",                 null: false
     t.boolean  "admin",           default: false, null: false
+    t.integer  "baskets_count",   default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

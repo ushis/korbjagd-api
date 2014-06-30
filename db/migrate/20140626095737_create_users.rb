@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.index   :email,           unique: true
       t.string  :password_digest, null: false
       t.boolean :admin,           null: false, default: false
+      t.integer :baskets_count,   null: false, default: 0
       t.timestamps
     end
   end

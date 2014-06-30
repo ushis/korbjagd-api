@@ -1,5 +1,5 @@
 class Basket < ActiveRecord::Base
-  belongs_to :user, inverse_of: :baskets
+  belongs_to :user, inverse_of: :baskets, counter_cache: true
 
   has_one :photo, inverse_of: :basket, dependent: :destroy
 
