@@ -11,6 +11,15 @@ class ImageUploader < CarrierWave::Uploader::Base
     true
   end
 
+  def default_url
+    ActionController::Base.helpers.asset_path([
+      'fallback',
+      model.class.to_s.underscore.pluralize,
+      version_name,
+      'default.png'
+    ].compact.join('/'))
+  end
+
   def store_dir
     File.join('uploads',
               model.class.to_s.underscore.pluralize,

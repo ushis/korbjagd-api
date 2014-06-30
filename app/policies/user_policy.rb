@@ -3,7 +3,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    record == user
+    record == user || user.admin?
   end
 
   def create?
@@ -11,18 +11,18 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    record == user
+    record == user || user.admin?
   end
 
   def destroy?
-    record == user
+    record == user || user.admin?
   end
 
   def permitted_attributes
-    if record.persisted?
-      [:email, :password, :password_confirmation]
-    else
+    if !record.persisted? || user.admin?
       [:username, :email, :password, :password_confirmation]
+    else
+      [:email, :password, :password_confirmation]
     end
   end
 end

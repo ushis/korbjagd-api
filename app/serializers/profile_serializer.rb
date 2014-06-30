@@ -1,3 +1,3 @@
 class ProfileSerializer < UserSerializer
-  attributes :email, :created_at, :updated_at
+  attributes :email, :admin, :created_at, :updated_at
 end

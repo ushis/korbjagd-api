@@ -7,7 +7,7 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def create?
-    BasketPolicy.new(record.basket).update?
+    BasketPolicy.new(user, record.basket).update?
   end
 
   def update?

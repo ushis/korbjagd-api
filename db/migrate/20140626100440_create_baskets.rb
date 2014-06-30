@@ -4,7 +4,9 @@ class CreateBaskets < ActiveRecord::Migration
       t.references :user,           null: false, index: true
       t.string     :name,           null: false
       t.float      :latitude,       null: false
+      t.index      :latitude
       t.float      :longitude,      null: false
+      t.index      :longitude
       t.text       :description,    null: true
       t.integer    :comments_count, null: false, default: 0
       t.timestamps

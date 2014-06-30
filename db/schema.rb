@@ -26,14 +26,16 @@ ActiveRecord::Schema.define(version: 20140628204027) do
   create_table "baskets", force: true do |t|
     t.integer  "user_id",                    null: false
     t.string   "name",                       null: false
-    t.float    "longitude",                  null: false
     t.float    "latitude",                   null: false
+    t.float    "longitude",                  null: false
     t.text     "description"
     t.integer  "comments_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "baskets", ["latitude"], name: "index_baskets_on_latitude"
+  add_index "baskets", ["longitude"], name: "index_baskets_on_longitude"
   add_index "baskets", ["user_id"], name: "index_baskets_on_user_id"
 
   create_table "baskets_categories", id: false, force: true do |t|
@@ -73,9 +75,10 @@ ActiveRecord::Schema.define(version: 20140628204027) do
   add_index "photos", ["basket_id"], name: "index_photos_on_basket_id"
 
   create_table "users", force: true do |t|
-    t.string   "username",        null: false
-    t.string   "email",           null: false
-    t.string   "password_digest", null: false
+    t.string   "username",                        null: false
+    t.string   "email",                           null: false
+    t.string   "password_digest",                 null: false
+    t.boolean  "admin",           default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
