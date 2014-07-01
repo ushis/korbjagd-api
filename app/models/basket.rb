@@ -13,8 +13,8 @@ class Basket < ActiveRecord::Base
   validates :user_id,   presence: true
 
   # Filters for baskets inside the given bounds
-  def self.in_bounds(b)
-    where(<<-SQL, s: b.sw.lat, w: b.sw.lng, n: b.ne.lat, e: b.ne.lng)
+  def self.in_bounds(bounds)
+    where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
       baskets.latitude > :s AND
       baskets.longitude > :w AND
       baskets.latitude < :n AND

@@ -13,6 +13,31 @@ class Bounds < Struct.new(:south_west, :north_east)
     extend_north_east(point)
   end
 
+  # Returns the south boundary
+  def south
+    south_west.try(:lat)
+  end
+
+  # Returns the west boundary
+  def west
+    south_west.try(:lng)
+  end
+
+  # Returns the north boundary
+  def north
+    north_east.try(:lat)
+  end
+
+  # Returns the east boundary
+  def east
+    north_east.try(:lng)
+  end
+
+  alias :s :south
+  alias :w :west
+  alias :n :north
+  alias :e :east
+
   alias :sw  :south_west
   alias :sw= :south_west=
 

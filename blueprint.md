@@ -85,7 +85,7 @@ Resource represents a collection of basket categories.
 
 # Group Basket
 
-## Basket Collection [/v1/baskets?{bounds}]
+## Basket Collection [/v1/baskets{?bounds}]
 
 Resource represents a collection of baskets located inside the given *bounds*.
 

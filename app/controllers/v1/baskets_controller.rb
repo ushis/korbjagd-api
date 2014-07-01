@@ -65,6 +65,6 @@ class V1::BasketsController < V1::ApplicationController
 
   # Returns the bounds calculated from the :bounds parameter
   def bounds
-    @bounds ||= Bounds.build(*Point.parse_all(params.require(:bounds)))
+    @bounds ||= Bounds.build(*Point.parse_all(params[:bounds]))
   end
 end
