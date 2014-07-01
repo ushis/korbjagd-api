@@ -14,11 +14,11 @@ class BasketPolicy < ApplicationPolicy
   end
 
   def update?
-    recored.user == user || user.admin?
+    record.user == user || user.admin?
   end
 
   def destroy?
-    recored.user == user || user.admin?
+    record.user == user || user.admin?
   end
 
   def permitted_attributes
