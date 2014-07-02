@@ -27,5 +27,8 @@ module KorbjagdApi
 
     # Do not log passwords
     config.filter_parameters += [:password, :password_confirmation]
+
+    # Default email From header contents
+    config.action_mailer.default_options = {from: ENV['MAIL_FROM']}
   end
 end

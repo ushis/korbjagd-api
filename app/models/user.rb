@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  validates :username, presence: true, uniqueness: true, format: /[a-z0-9]+/
+  validates :username, presence: true, uniqueness: true, format: /\A[a-z0-9]+\z/
   validates :email,    presence: true, uniqueness: true, format: /.+@.+/
   validates :password, presence: true, on: :create
   validates :password, confirmation: true
@@ -36,6 +36,16 @@ class User < ActiveRecord::Base
   # Returns the avatar or raises ActiveRecord::RecordNotFound.
   def avatar!
     avatar || raise(ActiveRecord::RecordNotFound.new('User has no avatar.'))
+  end
+
+  # Returns the email address with the username.
+  #
+  #   user.email_with_name
+  #   #=> "harry <dirty@harry.com>"
+  #
+  # Suitable for email headers
+  def email_with_name
+    "#{username} <#{email}>"
   end
 
   private
