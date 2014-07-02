@@ -6,7 +6,7 @@ class V1::SessionsController < V1::ApplicationController
   def create
     @user = User.find_by_email_or_username(user_params[:username])
 
-    if @user.authenticate(user_params[:password])
+    if @user.try(:authenticate, user_params[:password])
       render json: @user, root: :user, serializer: SessionSerializer
     else
       unauthorized
