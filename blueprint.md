@@ -26,6 +26,7 @@ Resource represents a user session used for authentication and authorization.
             "id": 4,
             "username": "harry",
             "email": "harry@example.com",
+            "notifications_enabled": true,
             "admin": false,
             "baskets_count": 3,
             "created_at": "2014-06-30T17:16:57.041Z",
@@ -1018,6 +1019,7 @@ Resource represents a collection of users.
             "id": 5,
             "username": "scotty",
             "email": "scotty@example.com",
+            "notifications_enabled": true,
             "admin": false,
             "baskets_count": 0,
             "created_at": "2014-06-30T23:26:05.993Z",
@@ -1068,6 +1070,7 @@ Resource represents one particular user identified by its *id*.
             "id": 4,
             "username": "peter",
             "email": "peter@example.com",
+            "notifications_enabled": true,
             "admin": false,
             "baskets_count": 3,
             "created_at": "2014-06-30T17:16:57.041Z",
@@ -1124,6 +1127,7 @@ Resource represents one particular user identified by its *id*.
             {
               "user": {
                 "email": "peter@aol.com",
+                "notifications_enabled": false,
                 "password": "super top secret",
                 "password_confirmation": "super top secret"
               }
@@ -1137,6 +1141,7 @@ Resource represents one particular user identified by its *id*.
             "id": 4,
             "username": "peter",
             "email": "peter@aol.com",
+            "notifications_enabled": false,
             "admin": false,
             "baskets_count": 3,
             "created_at": "2014-06-30T17:16:57.041Z",
@@ -1449,6 +1454,7 @@ Resource represents the user identified by *Authorization* header.
             "id": 4,
             "username": "peter",
             "email": "peter@aol.com",
+            "notifications_enabled": true,
             "admin": false,
             "baskets_count": 3,
             "created_at": "2014-06-30T17:16:57.041Z",
@@ -1490,7 +1496,8 @@ Resource represents the user identified by *Authorization* header.
 
             {
               "user": {
-                "email": "peter@example.com"
+                "email": "peter@example.com",
+                "notifications_enabled": false
               }
             }
 
@@ -1501,6 +1508,7 @@ Resource represents the user identified by *Authorization* header.
             "id": 4,
             "username": "peter",
             "email": "peter@example.com",
+            "notifications_enabled": false,
             "admin": false,
             "baskets_count": 3,
             "created_at": "2014-06-30T17:16:57.041Z",

@@ -19,10 +19,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
+    attrs = [:email, :notifications_enabled, :password, :password_confirmation]
+
     if !record.persisted? || user.admin?
-      [:username, :email, :password, :password_confirmation]
+      attrs << :username
     else
-      [:email, :password, :password_confirmation]
+      attrs
     end
   end
 end

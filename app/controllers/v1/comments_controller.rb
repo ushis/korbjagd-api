@@ -11,7 +11,7 @@ class V1::CommentsController < V1::ApplicationController
   end
 
   # GET /v1/baskets/:basket_id/comments/:id
-  def create
+  def show
     render json: @comment
   end
 
