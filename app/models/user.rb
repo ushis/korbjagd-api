@@ -33,9 +33,9 @@ class User < ActiveRecord::Base
     AuthToken.for(self).to_s
   end
 
-  # Returns the users avatar and buils a new one if necessary
-  def avatar
-    super || build_avatar
+  # Returns the avatar or raises ActiveRecord::RecordNotFound.
+  def avatar!
+    avatar || raise(ActiveRecord::RecordNotFound.new('User has no avatar.'))
   end
 
   private

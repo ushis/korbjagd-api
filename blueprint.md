@@ -181,16 +181,7 @@ Resource represents a collection of baskets located inside the given *bounds*.
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
             },
-            "photo": {
-              "id": null,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/fallback/photos/thumb/default.png",
-                "small": "https://assets.korbjagd.de/fallback/photos/small/default.png",
-                "medium": "https://assets.korbjagd.de/fallback/photos/medium/default.png"
-              },
-              "created_at": null,
-              "updated_at": null
-            },
+            "photo": null,
             "categories": [
               {
                 "id": 1,
@@ -1024,15 +1015,7 @@ Resource represents a collection of users.
             "baskets_count": 0,
             "created_at": "2014-06-30T23:26:05.993Z",
             "updated_at": "2014-06-30T23:26:05.993Z",
-            "avatar": {
-              "id": null,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/fallback/avatars/thumb/default.png",
-                "small": "https://assets.korbjagd.de/fallback/avatars/small/default.png"
-              },
-              "created_at": null,
-              "updated_at": null
-            }
+            "avatar": null
           }
         }
 

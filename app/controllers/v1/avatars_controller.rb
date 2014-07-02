@@ -2,7 +2,7 @@ class V1::AvatarsController < V1::ApplicationController
   skip_before_action :authenticate, only: [:show]
 
   before_action :find_user
-  before_action :find_avatar
+  before_action :find_avatar, only: [:show, :destroy]
 
   # GET /v1/users/:user_id/avatar
   def show
@@ -11,7 +11,10 @@ class V1::AvatarsController < V1::ApplicationController
 
   # POST /v1/users/:user_id/avatar
   def create
-    if @avatar.update_attributes(avatar_params)
+    @avatar = @user.build_avatar(avatar_params)
+    authorize @avatar
+
+    if @avatar.save
       render json: @avatar, status: 201
     else
       render_error 422, @avatar.errors
@@ -20,7 +23,10 @@ class V1::AvatarsController < V1::ApplicationController
 
   # PATCH /v1/users/:user_id/avatar
   def update
-    if @avatar.update_attributes(avatar_params)
+    @avatar = @user.build_avatar(avatar_params)
+    authorize @avatar
+
+    if @avatar.save
       render json: @avatar
     else
       render_error 422, @avatar.errors
@@ -45,7 +51,7 @@ class V1::AvatarsController < V1::ApplicationController
 
   # Finds the requested avatar
   def find_avatar
-    @avatar = @user.avatar
+    @avatar = @user.avatar!
     authorize @avatar
   end
 

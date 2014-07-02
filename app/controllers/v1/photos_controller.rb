@@ -2,7 +2,7 @@ class V1::PhotosController < V1::ApplicationController
   skip_before_action :authenticate, only: [:show]
 
   before_action :find_basket
-  before_action :find_photo
+  before_action :find_photo, only: [:show, :destroy]
 
   # GET /v1/baskets/:basket_id/photo
   def show
@@ -11,7 +11,10 @@ class V1::PhotosController < V1::ApplicationController
 
   # POST /v1/baskets/:basket_id/photo
   def create
-    if @photo.update_attributes(photo_params)
+    @photo = @basket.build_photo(photo_params)
+    authorize @photo
+
+    if @photo.save
       render json: @photo, status: 201
     else
       render_error 422, @photo.errors
@@ -20,7 +23,10 @@ class V1::PhotosController < V1::ApplicationController
 
   # PATCH /v1/baskets/:basket_id/photo
   def update
-    if @photo.update_attributes(photo_params)
+    @photo = @basket.build_photo(photo_params)
+    authorize @photo
+
+    if @photo.save
       render json: @photo
     else
       render_error 422, @photo.errors
@@ -45,7 +51,7 @@ class V1::PhotosController < V1::ApplicationController
 
   # Finds the requested photo
   def find_photo
-    @photo = @basket.photo
+    @photo = @basket.photo!
     authorize @photo
   end
 

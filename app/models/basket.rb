@@ -5,7 +5,7 @@ class Basket < ActiveRecord::Base
 
   has_many :comments, inverse_of: :basket, dependent: :destroy
 
-  has_and_belongs_to_many :categories, inverse_of: :baskets
+  has_and_belongs_to_many :categories, inverse_of: :baskets, readonly: true
 
   validates :name,      presence: true
   validates :latitude,  presence: true
@@ -27,8 +27,8 @@ class Basket < ActiveRecord::Base
     self.categories = Category.where(id: ids)
   end
 
-  # Returns the photo of the basket or initializes a new one
-  def photo
-    super || build_photo
+  # Returns the baskets photo or raises ActiveRecord::RecordNotFound
+  def photo!
+    photo || raise(ActiveRecord::RecordNotFound.new('Basket has no photo.'))
   end
 end
