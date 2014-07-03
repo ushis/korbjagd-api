@@ -18,7 +18,7 @@ class V1::ProfilesController < V1::ApplicationController
   # DELETE /v1/profile
   def destroy
     if @current_user.destroy
-      render json: nil, status: 201
+      render json: nil, status: 204
     else
       render_error 422, @current_user.errors
     end

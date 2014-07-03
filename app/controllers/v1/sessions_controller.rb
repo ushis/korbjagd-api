@@ -1,6 +1,6 @@
 class V1::SessionsController < V1::ApplicationController
-  skip_before_action :authenticate,      only: :create
-  skip_after_action  :verify_authorized, only: :create
+  skip_before_action :authenticate,      only: [:create]
+  skip_after_action  :verify_authorized, only: [:create]
 
   # POST /v1/sessions
   def create
@@ -15,6 +15,7 @@ class V1::SessionsController < V1::ApplicationController
 
   private
 
+  # Returns the required user params
   def user_params
     params.require(:user)
   end

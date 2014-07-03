@@ -1541,6 +1541,8 @@ Resource represents the user identified by *Authorization* header.
 
             Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
 
++ Response 204
+
 + Response 401 (application/json)
 
   + Headers
@@ -1552,4 +1554,32 @@ Resource represents the user identified by *Authorization* header.
             {
               "error": "Unauthorized",
               "details": {}
+            }
+
+# Group Password Reset
+
+## Password Reset [/v1/password_reset]
+
+Resource represents a password reset request for a user.
+
+### Password Reset Creation [POST]
+
++ Request (application/json)
+
+  + Body
+
+            {
+              "user": {
+                "email": "harry@example.com"
+              }
+            }
+
++ Response 200
+
+  + Body
+
+            {
+              "user": {
+                "email": "harry@example.com"
+              }
             }

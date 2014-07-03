@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   namespace :v1 do
-    resource  :profile,    only: [:show, :update, :destroy]
-    resources :sessions,   only: [:create]
-    resources :categories, only: [:index]
+    resource  :profile,        only: [:show, :update, :destroy]
+    resource  :password_reset, only: [:create]
+    resources :sessions,       only: [:create]
+    resources :categories,     only: [:index]
 
     resources :users do
       resource :avatar, only: [:show, :create, :update, :destroy]
