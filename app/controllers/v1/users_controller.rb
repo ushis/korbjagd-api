@@ -20,7 +20,7 @@ class V1::UsersController < V1::ApplicationController
     authorize @user
 
     if @user.save
-      UserMailer.welcome(@user).deliver
+      WelcomeMailJob.new.async.perform(@user)
       render json: @user, status: 201, root: :user, serializer: ProfileSerializer
     else
       render_error 422, @user.errors
