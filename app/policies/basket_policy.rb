@@ -22,6 +22,12 @@ class BasketPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:name, :longitude, :latitude, :description, category_ids: []]
+    attrs = [:name, category_ids: []]
+
+    if !record.persisted? || user.admin?
+      attrs.concat([:latitude, :longitude])
+    else
+      attrs
+    end
   end
 end

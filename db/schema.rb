@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703235008) do
+ActiveRecord::Schema.define(version: 20140704164453) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id",    null: false
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20140703235008) do
     t.string   "name",                       null: false
     t.float    "latitude",                   null: false
     t.float    "longitude",                  null: false
-    t.text     "description"
     t.integer  "comments_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"

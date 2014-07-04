@@ -143,7 +143,6 @@ Resource represents a collection of baskets located inside the given *bounds*.
             {
               "basket": {
                 "name": "Täubchenweg",
-                "description": "Toller Platz",
                 "latitude": 51.33558882875372,
                 "longitude": 12.402094602584839,
                 "category_ids": [
@@ -161,7 +160,6 @@ Resource represents a collection of baskets located inside the given *bounds*.
             "latitude": 51.33558882875372,
             "longitude": 12.402094602584839,
             "name": "Täubchenweg",
-            "description": "Schöner Platz",
             "comments_count": 0,
             "created_at": "2014-06-30T20:48:00.205Z",
             "updated_at": "2014-06-30T20:48:00.205Z",
@@ -237,7 +235,6 @@ Resource represents one particular basket identified by its *id*.
             "latitude": 51.33480793148367,
             "longitude": 12.373416423797607,
             "name": "Friedenspark",
-            "description": "Der Korb steht hinten in der Ecke. Findet man schon...",
             "comments_count": 3,
             "created_at": "2014-06-30T17:35:09.498Z",
             "updated_at": "2014-06-30T18:49:45.324Z",
@@ -289,7 +286,6 @@ Resource represents one particular basket identified by its *id*.
 
             {
               "basket": {
-                "description": "Toller Platz, aber viel los.",
                 "category_ids": [
                   1
                 ]
@@ -304,7 +300,6 @@ Resource represents one particular basket identified by its *id*.
             "latitude": 51.33480793148367,
             "longitude": 12.373416423797607,
             "name": "Freibierwiesen",
-            "description": "Toller Platz, aber viel los.",
             "comments_count": 0,
             "created_at": "2014-06-30T17:35:09.498Z",
             "updated_at": "2014-06-30T21:18:31.727Z",
