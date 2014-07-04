@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  match '*path', controller: :application, action: :options,  via: :options
+
   namespace :v1 do
     resource  :profile,        only: [:show, :update, :destroy]
     resource  :password_reset, only: [:create]

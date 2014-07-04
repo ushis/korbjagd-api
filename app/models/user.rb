@@ -6,13 +6,12 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  validates :username, presence: true, uniqueness: true, format: /\A[a-z0-9]+\z/
-  validates :email,    presence: true, uniqueness: true, format: /.+@.+/
+  validates :username, presence: true, uniqueness: true, length: {maximum: 255}, format: /\A[a-z0-9]+\z/
+  validates :email,    presence: true, uniqueness: true, length: {maximum: 255}, format: /.+@.+/
   validates :password, presence: true, on: :create
   validates :password, confirmation: true
 
-  validates :password_confirmation, presence: true,
-    unless: -> (u) { u.password.blank? }
+  validates :password_confirmation, presence: true, unless: -> (u) { u.password.blank? }
 
   before_validation :normalize_username
 

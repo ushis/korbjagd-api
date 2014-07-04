@@ -6,11 +6,28 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :unprocessable_entity
 
   before_action :authenticate
+  before_action :add_cors_headers
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
+  skip_before_action :authenticate,      only: :options
+  skip_after_action  :verify_authorized, only: :options
+
+  # Handles all OPTIONS requests
+  def options
+    headers['Access-Control-Max-Age'] = '1728000'
+    render json: nil, status: 204
+  end
+
   private
+
+  # Adds cors headers to the response
+  def add_cors_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE'
+    headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+  end
 
   # Renders a error response
   def render_error(status, errors={})
