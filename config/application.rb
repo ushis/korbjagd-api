@@ -25,8 +25,8 @@ module KorbjagdApi
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Do not log passwords
-    config.filter_parameters += [:password, :password_confirmation]
+    # Do not log passwords or binaries
+    config.filter_parameters += [:password, :password_confirmation, :image]
 
     # Default email From header contents
     config.action_mailer.default_options = {from: ENV['MAIL_FROM']}

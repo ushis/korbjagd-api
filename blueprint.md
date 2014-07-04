@@ -34,10 +34,7 @@ Resource represents a user session used for authentication and authorization.
             "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NCwiZXhwIjoxNDA0MjUxNTcxfQ.l4pJi-gE09SVEFTMrcv3F2ZEJ74u_SUnkVUGyyHEweA",
             "avatar": {
               "id": 2,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:18:03.989Z",
               "updated_at": "2014-06-30T18:01:21.119Z"
             }
@@ -173,10 +170,7 @@ Resource represents a collection of baskets located inside the given *bounds*.
               "username": "elly",
               "avatar": {
                 "id": 2,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -252,21 +246,14 @@ Resource represents one particular basket identified by its *id*.
               "username": "bill",
               "avatar": {
                 "id": 2,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84fb-ea51-462f-ac6c-5597d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84fb-ea51-462f-ac6c-559cb8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
             },
             "photo": {
               "id": 7,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/photos/thumb/0/e/0e69-42b3-4247-a49d-6acc7a7fd.png",
-                "small": "https://assets.korbjagd.de/uploads/photos/small/0/e/0e69-42b3-4247-a49d-6acc7a7fd.png",
-                "medium": "https://assets.korbjagd.de/uploads/photos/medium/0/e/0e69-42b3-4247-a49d-6acc7a7fd.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:35:17.144Z",
               "updated_at": "2014-06-30T17:35:17.144Z"
             },
@@ -326,21 +313,14 @@ Resource represents one particular basket identified by its *id*.
               "username": "michael",
               "avatar": {
                 "id": 2,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
             },
             "photo": {
               "id": 7,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/photos/thumb/0/e/0e69c21f-42b3-4247-a49d-b246acc7a7fd.png",
-                "small": "https://assets.korbjagd.de/uploads/photos/small/0/e/0e69c21f-42b3-4247-a49d-b246acc7a7fd.png",
-                "medium": "https://assets.korbjagd.de/uploads/photos/medium/0/e/0e69c21f-42b3-4247-a49d-b246acc7a7fd.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:35:17.144Z",
               "updated_at": "2014-06-30T17:35:17.144Z"
             },
@@ -440,10 +420,7 @@ Resource represents all comments of a basket.
                 "username": "peter",
                 "avatar": {
                   "id": 3,
-                  "urls": {
-                    "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                    "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                  },
+                  "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                   "created_at": "2014-06-30T17:18:03.989Z",
                   "updated_at": "2014-06-30T18:01:21.119Z"
                 }
@@ -459,10 +436,7 @@ Resource represents all comments of a basket.
                 "username": "eva",
                 "avatar": {
                   "id": 8,
-                  "urls": {
-                    "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                    "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                  },
+                  "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                   "created_at": "2014-06-30T17:18:03.989Z",
                   "updated_at": "2014-06-30T18:01:21.119Z"
                 }
@@ -478,10 +452,7 @@ Resource represents all comments of a basket.
                 "username": "peter",
                 "avatar": {
                   "id": 3,
-                  "urls": {
-                    "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                    "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                  },
+                  "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                   "created_at": "2014-06-30T17:18:03.989Z",
                   "updated_at": "2014-06-30T18:01:21.119Z"
                 }
@@ -526,10 +497,7 @@ Resource represents all comments of a basket.
               "username": "harry",
               "avatar": {
                 "id": 3,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -593,10 +561,7 @@ Resource represents one particular comment identified by its *id* and its basket
               "username": "harry",
               "avatar": {
                 "id": 3,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -640,10 +605,7 @@ Resource represents one particular comment identified by its *id* and its basket
               "username": "harry",
               "avatar": {
                 "id": 3,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -738,33 +700,26 @@ Resource represents one particular basket photo.
 
 ### Create Photo [POST]
 
-+ Request (multipart/form-data, boundary=AaB03x)
++ Request (application/json)
 
   + Headers
 
-            Content-Length: 87632642
             Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
 
   + Body
 
-            --AaB03x
-            content-disposition: form-data; name="photo[image]"; filename="basket.png"
-            Content-Type: image/png
-            Content-Transfer-Encoding: binary
-
-            BINARYDATA
-            --AaB03x--
+            {
+              "photo": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
 
 + Response 201 (application/json)
 
         {
           "photo": {
             "id": 6,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/photos/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/photos/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "medium": "https://assets.korbjagd.de/uploads/photos/medium/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png"
-            },
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -812,11 +767,7 @@ Resource represents one particular basket photo.
         {
           "photo": {
             "id": 6,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/photos/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/photos/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "medium": "https://assets.korbjagd.de/uploads/photos/medium/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png"
-            },
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -831,33 +782,27 @@ Resource represents one particular basket photo.
 
 ### Update Photo [PATCH]
 
-+ Request (multipart/form-data, boundary=AaB03x)
++ Request (application/json)
 
   + Headers
 
-            Content-Length: 87632642
             Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
 
   + Body
 
-            --AaB03x
-            content-disposition: form-data; name="photo[image]"; filename="basket.png"
-            Content-Type: image/png
-            Content-Transfer-Encoding: binary
+            {
+              "photo": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
 
-            BINARYDATA
-            --AaB03x--
 
 + Response 200 (application/json)
 
         {
           "photo": {
             "id": 6,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/photos/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/photos/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "medium": "https://assets.korbjagd.de/uploads/photos/medium/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png"
-            },
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -951,10 +896,7 @@ Resource represents a collection of users.
               "username": "harry",
               "avatar": {
                 "id": 3,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -964,10 +906,7 @@ Resource represents a collection of users.
               "username": "elly",
               "avatar": {
                 "id": 5,
-                "urls": {
-                  "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                  "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-                },
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
                 "created_at": "2014-06-30T17:18:03.989Z",
                 "updated_at": "2014-06-30T18:01:21.119Z"
               }
@@ -1060,10 +999,7 @@ Resource represents one particular user identified by its *id*.
             "updated_at": "2014-06-30T17:16:57.041Z",
             "avatar": {
               "id": 2,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:18:03.989Z",
               "updated_at": "2014-06-30T18:01:21.119Z"
             }
@@ -1131,10 +1067,7 @@ Resource represents one particular user identified by its *id*.
             "updated_at": "2014-06-30T17:16:57.041Z",
             "avatar": {
               "id": 2,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:18:03.989Z",
               "updated_at": "2014-06-30T18:01:21.119Z"
             }
@@ -1229,32 +1162,26 @@ Resource represents one particular user avatar.
 
 ### Create Avatar [POST]
 
-+ Request (multipart/form-data, boundary=AaB03x)
++ Request (application/json)
 
   + Headers
 
-            Content-Length: 87632642
             Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
 
   + Body
 
-            --AaB03x
-            content-disposition: form-data; name="avatar[image]"; filename="user.png"
-            Content-Type: image/png
-            Content-Transfer-Encoding: binary
-
-            BINARYDATA
-            --AaB03x--
+            {
+              "avatar": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
 
 + Response 201 (application/json)
 
         {
           "avatar": {
             "id": 23,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/avatars/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-            },
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -1302,10 +1229,7 @@ Resource represents one particular user avatar.
         {
           "avatar": {
             "id": 23,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/avatars/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-            },
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -1320,32 +1244,26 @@ Resource represents one particular user avatar.
 
 ### Update Avatar [PATCH]
 
-+ Request (multipart/form-data, boundary=AaB03x)
++ Request (application/json)
 
   + Headers
 
-            Content-Length: 87632642
             Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
 
   + Body
 
-            --AaB03x
-            content-disposition: form-data; name="avatar[image]"; filename="basket.png"
-            Content-Type: image/png
-            Content-Transfer-Encoding: binary
-
-            BINARYDATA
-            --AaB03x--
+            {
+              "avatar": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
 
 + Response 200 (application/json)
 
         {
           "avatar": {
             "id": 23,
-            "urls": {
-              "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-              "small": "https://assets.korbjagd.de/uploads/avatars/small/b/7/b752c678-d28d-4368-8c64-5b8e9a24a83e.png",
-            },
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
@@ -1444,10 +1362,7 @@ Resource represents the user identified by *Authorization* header.
             "updated_at": "2014-06-30T23:38:52.985Z",
             "avatar": {
               "id": 2,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:18:03.989Z",
               "updated_at": "2014-06-30T18:01:21.119Z"
             }
@@ -1498,10 +1413,7 @@ Resource represents the user identified by *Authorization* header.
             "updated_at": "2014-06-30T23:38:52.985Z",
             "avatar": {
               "id": 2,
-              "urls": {
-                "thumb": "https://assets.korbjagd.de/uploads/avatars/thumb/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "small": "https://assets.korbjagd.de/uploads/avatars/small/8/4/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png"
-              },
+              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:18:03.989Z",
               "updated_at": "2014-06-30T18:01:21.119Z"
             }

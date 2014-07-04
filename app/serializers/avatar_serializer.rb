@@ -1,7 +1,7 @@
 class AvatarSerializer < ActiveModel::Serializer
-  attributes :id, :urls, :created_at, :updated_at
+  attributes :id, :url, :created_at, :updated_at
 
-  def urls
-    object.image.versions.map { |k, v| [k, v.url] }.to_h
+  def url
+    object.image.url
   end
 end

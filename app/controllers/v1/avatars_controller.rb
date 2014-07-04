@@ -11,10 +11,10 @@ class V1::AvatarsController < V1::ApplicationController
 
   # POST /v1/users/:user_id/avatar
   def create
-    @avatar = @user.build_avatar(avatar_params)
+    @avatar = @user.build_avatar
     authorize @avatar
 
-    if @avatar.save
+    if @avatar.update_attributes(avatar_params)
       render json: @avatar, status: 201
     else
       render_error 422, @avatar.errors
@@ -23,10 +23,10 @@ class V1::AvatarsController < V1::ApplicationController
 
   # PATCH /v1/users/:user_id/avatar
   def update
-    @avatar = @user.build_avatar(avatar_params)
+    @avatar = @user.build_avatar
     authorize @avatar
 
-    if @avatar.save
+    if @avatar.update_attributes(avatar_params)
       render json: @avatar
     else
       render_error 422, @avatar.errors

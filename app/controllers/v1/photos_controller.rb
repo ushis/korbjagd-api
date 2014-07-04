@@ -11,10 +11,10 @@ class V1::PhotosController < V1::ApplicationController
 
   # POST /v1/baskets/:basket_id/photo
   def create
-    @photo = @basket.build_photo(photo_params)
+    @photo = @basket.build_photo
     authorize @photo
 
-    if @photo.save
+    if @photo.update_attributes(photo_params)
       render json: @photo, status: 201
     else
       render_error 422, @photo.errors
@@ -23,10 +23,10 @@ class V1::PhotosController < V1::ApplicationController
 
   # PATCH /v1/baskets/:basket_id/photo
   def update
-    @photo = @basket.build_photo(photo_params)
+    @photo = @basket.build_photo
     authorize @photo
 
-    if @photo.save
+    if @photo.update_attributes(photo_params)
       render json: @photo
     else
       render_error 422, @photo.errors
