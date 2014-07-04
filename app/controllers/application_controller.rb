@@ -37,7 +37,7 @@ class ApplicationController < ActionController::API
 
   # Renders a 401 error
   def unauthorized
-    response.headers['WWW-Authenticate'] = 'Bearer realm="API"'
+    headers['WWW-Authenticate'] = 'Bearer realm="API"'
     render_error 401
   end
 
