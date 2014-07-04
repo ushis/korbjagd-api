@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.4'
 gem 'rails-api'
 gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.2'
