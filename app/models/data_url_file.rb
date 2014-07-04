@@ -5,7 +5,7 @@ class DataUrlFile < StringIO
   PREFIX_PATTERN = /\Adata:([^\/]+\/[^;]+);base64\z/
 
   def initialize(s)
-    prefix, data = s.to_s.split(',')
+    prefix, data = s.to_s.split(',', 2)
 
     if prefix.blank? || data.blank?
       raise ArgumentError.new('Invalid data url')
