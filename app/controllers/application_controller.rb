@@ -5,8 +5,8 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound,       with: :not_found
   rescue_from ActionController::ParameterMissing, with: :unprocessable_entity
 
-  before_action :authenticate
   before_action :add_cors_headers
+  before_action :authenticate
 
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
