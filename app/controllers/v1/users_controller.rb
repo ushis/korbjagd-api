@@ -39,6 +39,7 @@ class V1::UsersController < V1::ApplicationController
   # DELETE /v1/users/:id
   def destroy
     if @user.destroy
+      GoodbyeMailJob.new.async.perform(@user)
       render json: nil, status: 201
     else
       render_error 422, @user.errors
