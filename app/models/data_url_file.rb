@@ -17,10 +17,14 @@ class DataUrlFile < StringIO
       raise ArgumentError.new('Invalid data url')
     end
 
-    type = matcher[1]
-
     super(Base64.decode64(data))
-    @content_type = type
-    @original_filename = "#{SecureRandom.uuid}.#{type.split('/')[1]}"
+    @content_type = matcher[1]
+    @original_filename = [SecureRandom.uuid, ext].compact.join('.')
+  end
+
+  private
+
+  def ext
+    MIME::Types[@content_type].first.try(:extensions).try(:first)
   end
 end
