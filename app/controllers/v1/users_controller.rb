@@ -1,17 +1,17 @@
 class V1::UsersController < V1::ApplicationController
-  skip_before_action :authenticate, only: [:create]
+  skip_before_action :authenticate, only: [:show, :create]
 
   before_action :find_user, only: [:show, :update, :destroy]
 
   # GET /v1/users
   def index
-    @users = policy_scope(User)
-    render json: @users
+    @users = policy_scope(User).includes(:avatar)
+    render json: @users, each_serializer: ProfileSerializer
   end
 
   # GET /v1/users/:id
   def show
-    render json: @user, root: :user, serializer: ProfileSerializer
+    render json: @user, root: :user, serializer: policy(@user).serializer
   end
 
   # POST /v1/users
