@@ -889,6 +889,12 @@ Resource represents a collection of users.
             {
               "id": 4,
               "username": "harry",
+              "email": "harry@example.com",
+              "notifications_enabled": false,
+              "admin": false,
+              "baskets_count": 12,
+              "created_at": "2014-06-30T17:16:57.041Z",
+              "updated_at": "2014-07-05T15:46:32.692Z",
               "avatar": {
                 "id": 3,
                 "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
@@ -899,6 +905,12 @@ Resource represents a collection of users.
             {
               "id": 45,
               "username": "elly",
+              "email": "elly@example.com",
+              "notifications_enabled": true,
+              "admin": false,
+              "baskets_count": 11,
+              "created_at": "2014-06-30T23:26:05.993Z",
+              "updated_at": "2014-06-30T23:26:05.993Z",
               "avatar": {
                 "id": 5,
                 "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
