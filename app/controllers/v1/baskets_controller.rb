@@ -5,13 +5,13 @@ class V1::BasketsController < V1::ApplicationController
 
   # GET /v1/baskets
   def index
-    @baskets = policy_scope(Basket).in_bounds(bounds)
-    @baskets = @baskets.exclude_bounds(exclude) if exclude
+    @baskets = policy_scope(Basket).inside_bounds(inside)
+    @baskets = @baskets.outside_bounds(outside) if outside
 
     render json: @baskets,
       each_serializer: BasketsSerializer,
       meta_key: :params,
-      meta: {bounds: {include: bounds, exclude: exclude}}
+      meta: {inside: inside, outside: outside}
   end
 
   # GET /v1/baskets/:id
@@ -66,15 +66,15 @@ class V1::BasketsController < V1::ApplicationController
       .permit(*policy(@basket || Basket.new).permitted_attributes)
   end
 
-  # Returns the bounds calculated from the :bounds parameter
-  def bounds
-    @bounds ||= Bounds.build(*Point.parse_all(params[:bounds]))
+  # Returns the bounds calculated from the :inside parameter
+  def inside
+    @inside ||= Bounds.build(*Point.parse_all(params[:inside]))
   end
 
-  # Returns the bounds calculated from the :exclude parameter or nil
-  def exclude
-    @exclude ||= if params[:exclude].present?
-      Bounds.build(*Point.parse_all(params[:exclude]))
+  # Returns the bounds calculated from the :outside parameter or nil
+  def outside
+    @outside ||= if params[:outside].present?
+      Bounds.build(*Point.parse_all(params[:outside]))
     end
   end
 end

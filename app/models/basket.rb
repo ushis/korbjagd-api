@@ -13,7 +13,7 @@ class Basket < ActiveRecord::Base
   validates :longitude, presence: true
 
   # Filters for baskets inside the given bounds
-  def self.in_bounds(bounds)
+  def self.inside_bounds(bounds)
     where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
       baskets.latitude > :s AND
       baskets.longitude > :w AND
@@ -23,7 +23,7 @@ class Basket < ActiveRecord::Base
   end
 
   # Filters for baskets outside the given bounds
-  def self.exclude_bounds(bounds)
+  def self.outside_bounds(bounds)
     where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
       baskets.latitude < :s OR
       baskets.longitude < :w OR
