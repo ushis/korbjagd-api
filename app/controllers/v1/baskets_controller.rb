@@ -6,11 +6,12 @@ class V1::BasketsController < V1::ApplicationController
   # GET /v1/baskets
   def index
     @baskets = policy_scope(Basket).in_bounds(bounds)
+    @baskets = @baskets.exclude_bounds(exclude) if exclude
 
     render json: @baskets,
       each_serializer: BasketsSerializer,
       meta_key: :params,
-      meta: {bounds: bounds}
+      meta: {bounds: {include: bounds, exclude: exclude}}
   end
 
   # GET /v1/baskets/:id
@@ -68,5 +69,12 @@ class V1::BasketsController < V1::ApplicationController
   # Returns the bounds calculated from the :bounds parameter
   def bounds
     @bounds ||= Bounds.build(*Point.parse_all(params[:bounds]))
+  end
+
+  # Returns the bounds calculated from the :exclude parameter or nil
+  def exclude
+    @exclude ||= if params[:exclude].present?
+      Bounds.build(*Point.parse_all(params[:exclude]))
+    end
   end
 end

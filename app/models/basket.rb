@@ -22,6 +22,16 @@ class Basket < ActiveRecord::Base
     SQL
   end
 
+  # Filters for baskets outside the given bounds
+  def self.exclude_bounds(bounds)
+    where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
+      baskets.latitude < :s OR
+      baskets.longitude < :w OR
+      baskets.latitude > :n OR
+      baskets.longitude > :e
+    SQL
+  end
+
   # Assigns categories to the basket
   def category_ids=(ids)
     self.categories = Category.where(id: ids)

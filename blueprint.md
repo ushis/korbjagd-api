@@ -83,7 +83,7 @@ Resource represents a collection of basket categories.
 
 # Group Basket
 
-## Basket Collection [/v1/baskets{?bounds}]
+## Basket Collection [/v1/baskets{?bounds,exclude}]
 
 Resource represents a collection of baskets located inside the given *bounds*.
 
@@ -91,6 +91,9 @@ Resource represents a collection of baskets located inside the given *bounds*.
 
   + bounds (required, array, `['10.1,70.21', '31.33,24.12']`) ...
     coordinates of at least 2 points inside the area to look for baskets
+
+  + exclude (optional, array, `['14.73,50.3', '20.12,79.11']`) ...
+    same as `bounds` but excludes all baskets inside this area
 
 ### Retrieve Baskets [GET]
 
@@ -116,13 +119,25 @@ Resource represents a collection of baskets located inside the given *bounds*.
           ],
           "params": {
             "bounds": {
-              "south_west": {
-                "latitude": 24.12,
-                "longitude": 10.1
+              "include": {
+                "south_west": {
+                  "latitude": 24.12,
+                  "longitude": 10.1
+                },
+                "north_east": {
+                  "latitude": 70.21,
+                  "longitude": 31.33
+                }
               },
-              "north_east": {
-                "latitude": 70.21,
-                "longitude": 31.33
+              "exclude": {
+                "south_west": {
+                  "latitude": 14.73,
+                  "longitude": 50.3
+                },
+                "north_east": {
+                  "latitude": 20.12,
+                  "longitude": 79.11
+                }
               }
             }
           }
