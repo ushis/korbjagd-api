@@ -32,6 +32,8 @@ class V1::BasketsController < V1::ApplicationController
 
   # PATCH /v1/baskets/:id
   def update
+    @basket.user ||= current_user
+
     if @basket.update_attributes(basket_params)
       render json: @basket
     else
