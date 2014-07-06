@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704164453) do
+ActiveRecord::Schema.define(version: 20140706110451) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id",    null: false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20140704164453) do
     t.datetime "updated_at"
   end
 
+  add_index "baskets", ["latitude", "longitude"], name: "index_baskets_on_latitude_and_longitude", unique: true
   add_index "baskets", ["latitude"], name: "index_baskets_on_latitude"
   add_index "baskets", ["longitude"], name: "index_baskets_on_longitude"
   add_index "baskets", ["user_id"], name: "index_baskets_on_user_id"

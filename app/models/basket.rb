@@ -9,7 +9,7 @@ class Basket < ActiveRecord::Base
 
   validates :user_id,   presence: true
   validates :name,      presence: true, length: {maximum: 255}
-  validates :latitude,  presence: true
+  validates :latitude,  presence: true, uniqueness: {scope: :longitude}
   validates :longitude, presence: true
 
   # Filters for baskets inside the given bounds
