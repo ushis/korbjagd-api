@@ -25,6 +25,7 @@ class V1::BasketsController < V1::ApplicationController
     authorize @basket
 
     if @basket.save
+      NewBasketMailJob.new.async.perform(@basket)
       render json: @basket, status: 201
     else
       render_error 422, @basket.errors

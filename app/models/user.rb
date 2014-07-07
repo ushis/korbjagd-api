@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
 
   before_validation :normalize_username
 
+  # Filters admins
+  def self.admins
+    where(admin: true)
+  end
+
   # Filters users with notifications enabled
   def self.reachable
     where(notifications_enabled: true)
