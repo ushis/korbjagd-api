@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
 
   before_validation :normalize_username
 
+  # Filters users with notifications enabled
+  def self.reachable
+    where(notifications_enabled: true)
+  end
+
   # Returns a user found by auth token or nil
   def self.find_by_auth_token(token)
     find_by_id(AuthToken.from_s(token.to_s).id)

@@ -4,6 +4,7 @@ class Basket < ActiveRecord::Base
   has_one :photo, inverse_of: :basket, dependent: :destroy
 
   has_many :comments, -> { order(:created_at) }, inverse_of: :basket, dependent: :destroy
+  has_many :commenters, -> { uniq }, through: :comments, source: :user
 
   has_and_belongs_to_many :categories, inverse_of: :baskets, readonly: true
 

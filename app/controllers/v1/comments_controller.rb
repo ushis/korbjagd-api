@@ -21,6 +21,7 @@ class V1::CommentsController < V1::ApplicationController
     authorize @comment
 
     if @comment.save
+      NewCommentMailJob.new.async.perform(@comment)
       render json: @comment, status: 201
     else
       render_error 422, @comment.errors
