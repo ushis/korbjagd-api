@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
     where(notifications_enabled: true)
   end
 
+  # Exlcudes the specified users from the relation
+  def self.exclude(*users)
+    where.not(id: users)
+  end
+
   # Returns a user found by auth token or nil
   def self.find_by_auth_token(token)
     find_by_id(AuthToken.from_s(token.to_s).id)

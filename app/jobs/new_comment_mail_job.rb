@@ -19,10 +19,8 @@ class NewCommentMailJob < ApplicationJob
 
   def mail_commenters(comment)
     basket = comment.basket
-    exclude = [basket.user.try(:id), comment.user.id]
-    recipients = basket.commenters.reachable.where.not(id: exclude)
 
-    recipients.each do |user|
+    basket.commenters.reachable.exclude(basket.user, comment.user).each do |user|
       CommentMailer.new_comment(user, basket, comment).deliver
     end
   end
