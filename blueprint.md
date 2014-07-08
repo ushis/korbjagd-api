@@ -1515,3 +1515,46 @@ Resource represents a password reset request for a user.
                 "email": "harry@example.com"
               }
             }
+
+### Password Reset [PATCH]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "user": {
+                "password": "secret",
+                "password_confirmation": "secret"
+              }
+            }
+
++ Response 204
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {
+            "password_confirmation": [
+              "doesn't match Password"
+            ]
+          }
+        }

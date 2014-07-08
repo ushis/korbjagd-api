@@ -1,0 +1,2 @@
+class AuthToken < ApplicationToken
+end

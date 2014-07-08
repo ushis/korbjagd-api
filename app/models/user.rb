@@ -37,6 +37,13 @@ class User < ActiveRecord::Base
     nil
   end
 
+  # Returns a user found by password reset token or nil
+  def self.find_by_password_reset_token(token)
+    find_by_id(PasswordResetToken.from_s(token.to_s).id)
+  rescue JWT::DecodeError
+    nil
+  end
+
   # Finds a user by email/username
   def self.find_by_email_or_username(q)
     where('users.email = :q OR users.username = :q', q: q).first
@@ -45,6 +52,11 @@ class User < ActiveRecord::Base
   # Returns a new auth token for the user
   def auth_token
     AuthToken.for(self).to_s
+  end
+
+  # Returns a new password reset token for the user
+  def password_reset_token
+    PasswordResetToken.for(self).to_s
   end
 
   # Returns the avatar or raises ActiveRecord::RecordNotFound.
