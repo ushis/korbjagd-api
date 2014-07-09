@@ -416,6 +416,206 @@ Resource represents one particular basket identified by its *id*.
           "details": {}
         }
 
+# Group Photo
+
+## Photo [/v1/baskets/{basket_id}/photo]
+
+Resource represents one particular basket photo.
+
++ Parameters
+
+  + basket_id (required, integer, `51`) ... `id` identifying the basket
+
+### Create Photo [POST]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "photo": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
+
++ Response 201 (application/json)
+
+        {
+          "photo": {
+            "id": 6,
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {
+            "image":[
+              "can't be blank",
+              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
+            ]
+          }
+        }
+
+### Retrieve Photo [GET]
+
++ Response 200 (application/json)
+
+        {
+          "photo": {
+            "id": 6,
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
+### Update Photo [PATCH]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "photo": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
+
+
++ Response 200 (application/json)
+
+        {
+          "photo": {
+            "id": 6,
+            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {
+            "image":[
+              "can't be blank",
+              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
+            ]
+          }
+        }
+
+# Delete Photo [DELETE]
+
++ Request
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
++ Response 201
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
 # Group Comment
 
 ## Comment Collection [/v1/baskets/{basket_id}/comments]
@@ -710,279 +910,13 @@ Resource represents one particular comment identified by its *id* and its basket
           "details": {}
         }
 
-# Group Photo
+# Group Profile
 
-## Photo [/v1/baskets/{basket_id}/photo]
+## Profile [/v1/profile]
 
-Resource represents one particular basket photo.
+Resource represents the user identified by *Authorization* header.
 
-+ Parameters
-
-  + basket_id (required, integer, `51`) ... `id` identifying the basket
-
-### Create Photo [POST]
-
-+ Request (application/json)
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-  + Body
-
-            {
-              "photo": {
-                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
-              }
-            }
-
-+ Response 201 (application/json)
-
-        {
-          "photo": {
-            "id": 6,
-            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-+ Response 422 (application/json)
-
-        {
-          "error": "Unprocessable Entity",
-          "details": {
-            "filename": [
-              "can't be blank"
-            ],
-            "image":[
-              "can't be blank",
-              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
-            ]
-          }
-        }
-
-### Retrieve Photo [GET]
-
-+ Response 200 (application/json)
-
-        {
-          "photo": {
-            "id": 6,
-            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-### Update Photo [PATCH]
-
-+ Request (application/json)
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-  + Body
-
-            {
-              "photo": {
-                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
-              }
-            }
-
-
-+ Response 200 (application/json)
-
-        {
-          "photo": {
-            "id": 6,
-            "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-+ Response 422 (application/json)
-
-        {
-          "error": "Unprocessable Entity",
-          "details": {
-            "filename": [
-              "can't be blank"
-            ],
-            "image":[
-              "can't be blank",
-              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
-            ]
-          }
-        }
-
-# Delete Photo [DELETE]
-
-+ Request
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-+ Response 201
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-# Group User
-
-## User Collection [/v1/users]
-
-Resource represents a collection of users.
-
-### Retrieve Users [GET]
-
-+ Request
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-+ Response 200 (application/json)
-
-        {
-          "users": [
-            {
-              "id": 4,
-              "username": "harry",
-              "email": "harry@example.com",
-              "notifications_enabled": false,
-              "admin": false,
-              "baskets_count": 12,
-              "created_at": "2014-06-30T17:16:57.041Z",
-              "updated_at": "2014-07-05T15:46:32.692Z",
-              "avatar": {
-                "id": 3,
-                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "created_at": "2014-06-30T17:18:03.989Z",
-                "updated_at": "2014-06-30T18:01:21.119Z"
-              }
-            },
-            {
-              "id": 45,
-              "username": "elly",
-              "email": "elly@example.com",
-              "notifications_enabled": true,
-              "admin": false,
-              "baskets_count": 11,
-              "created_at": "2014-06-30T23:26:05.993Z",
-              "updated_at": "2014-06-30T23:26:05.993Z",
-              "avatar": {
-                "id": 5,
-                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-                "created_at": "2014-06-30T17:18:03.989Z",
-                "updated_at": "2014-06-30T18:01:21.119Z"
-              }
-            }
-          ]
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-### Create User [POST]
+### Create Profile [POST]
 
 + Request (application/json)
 
@@ -1023,385 +957,6 @@ Resource represents a collection of users.
             ]
           }
         }
-
-## User [/v1/users/{id}]
-
-Resource represents one particular user identified by its *id*.
-
-+ Parameters
-
-  + id (required, integer, `627`) ... `id` identifying the user
-
-### Retrieve User [GET]
-
-+ Request
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-+ Response 200 (application/json)
-
-        {
-          "user": {
-            "id": 4,
-            "username": "peter",
-            "email": "peter@example.com",
-            "notifications_enabled": true,
-            "admin": false,
-            "baskets_count": 3,
-            "created_at": "2014-06-30T17:16:57.041Z",
-            "updated_at": "2014-06-30T17:16:57.041Z",
-            "avatar": {
-              "id": 2,
-              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-              "created_at": "2014-06-30T17:18:03.989Z",
-              "updated_at": "2014-06-30T18:01:21.119Z"
-            }
-          }
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-### Update User [PATCH]
-
-+ Request (application/json)
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-  + Body
-
-            {
-              "user": {
-                "email": "peter@aol.com",
-                "notifications_enabled": false,
-                "password": "super top secret",
-                "password_confirmation": "super top secret"
-              }
-            }
-
-+ Response 200 (application/json)
-
-
-        {
-          "user": {
-            "id": 4,
-            "username": "peter",
-            "email": "peter@aol.com",
-            "notifications_enabled": false,
-            "admin": false,
-            "baskets_count": 3,
-            "created_at": "2014-06-30T17:16:57.041Z",
-            "updated_at": "2014-06-30T17:16:57.041Z",
-            "avatar": {
-              "id": 2,
-              "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-              "created_at": "2014-06-30T17:18:03.989Z",
-              "updated_at": "2014-06-30T18:01:21.119Z"
-            }
-          }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-+ Response 422 (application/json)
-
-        {
-          "error": "Unprocessable Entity",
-          "details": {
-            "email": [
-              "can't be blank",
-              "is invalid"
-            ]
-          }
-        }
-
-### Delete User [DELETE]
-
-+ Request
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-+ Response 201
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-# Group Avatar
-
-## Avatar [/v1/users/{user_id}/avatar]
-
-Resource represents one particular user avatar.
-
-+ Parameters
-
-  + user_id (required, integer, `51`) ... `id` identifying the user
-
-### Create Avatar [POST]
-
-+ Request (application/json)
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-  + Body
-
-            {
-              "avatar": {
-                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
-              }
-            }
-
-+ Response 201 (application/json)
-
-        {
-          "avatar": {
-            "id": 23,
-            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-+ Response 422 (application/json)
-
-        {
-          "error": "Unprocessable Entity",
-          "details": {
-            "filename": [
-              "can't be blank"
-            ],
-            "image":[
-              "can't be blank",
-              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
-            ]
-          }
-        }
-
-### Retrieve Avatar [GET]
-
-+ Response 200 (application/json)
-
-        {
-          "avatar": {
-            "id": 23,
-            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-### Update Avatar [PATCH]
-
-+ Request (application/json)
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-  + Body
-
-            {
-              "avatar": {
-                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
-              }
-            }
-
-+ Response 200 (application/json)
-
-        {
-          "avatar": {
-            "id": 23,
-            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
-            "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
-          }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-+ Response 422 (application/json)
-
-        {
-          "error": "Unprocessable Entity",
-          "details": {
-            "filename": [
-              "can't be blank"
-            ],
-            "image":[
-              "can't be blank",
-              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
-            ]
-          }
-        }
-
-# Delete Avatar [DELETE]
-
-+ Request
-
-  + Headers
-
-            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
-
-+ Response 201
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
-        }
-
-+ Response 404 (application/json)
-
-        {
-          "error": "Not Found",
-          "details": {}
-        }
-
-# Group Profile
-
-## Profile [/v1/profile]
-
-Resource represents the user identified by *Authorization* header.
 
 ### Retrieve Profile [GET]
 
@@ -1530,6 +1085,192 @@ Resource represents the user identified by *Authorization* header.
               "error": "Unauthorized",
               "details": {}
             }
+
+# Group Avatar
+
+## Avatar [/v1/profile/avatar]
+
+Resource represents one particular user avatar.
+
+### Create Avatar [POST]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "avatar": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
+
++ Response 201 (application/json)
+
+        {
+          "avatar": {
+            "id": 23,
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {
+            "image":[
+              "can't be blank",
+              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
+            ]
+          }
+        }
+
+### Retrieve Avatar [GET]
+
++ Request
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
++ Response 200 (application/json)
+
+        {
+          "avatar": {
+            "id": 23,
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
+### Update Avatar [PATCH]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "avatar": {
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU..."
+              }
+            }
+
++ Response 200 (application/json)
+
+        {
+          "avatar": {
+            "id": 23,
+            "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+            "created_at": "2014-06-30T16:46:34.998Z",
+            "updated_at": "2014-06-30T16:46:34.998Z"
+          }
+        }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {
+            "image":[
+              "can't be blank",
+              "You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png"
+            ]
+          }
+        }
+
+# Delete Avatar [DELETE]
+
++ Request
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
++ Response 201
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
 
 # Group Password Reset
 

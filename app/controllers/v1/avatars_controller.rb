@@ -1,15 +1,13 @@
 class V1::AvatarsController < V1::ApplicationController
-  skip_before_action :authenticate, only: [:show]
-
   before_action :find_user
   before_action :find_avatar, only: [:show, :destroy]
 
-  # GET /v1/users/:user_id/avatar
+  # GET /v1/profile/avatar
   def show
     render json: @avatar
   end
 
-  # POST /v1/users/:user_id/avatar
+  # POST /v1/profile/avatar
   def create
     @avatar = @user.build_avatar
     authorize @avatar
@@ -21,7 +19,7 @@ class V1::AvatarsController < V1::ApplicationController
     end
   end
 
-  # PATCH /v1/users/:user_id/avatar
+  # PATCH /v1/profile/avatar
   def update
     @avatar = @user.build_avatar
     authorize @avatar
@@ -46,7 +44,7 @@ class V1::AvatarsController < V1::ApplicationController
 
   # Finds the requested user
   def find_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 
   # Finds the requested avatar

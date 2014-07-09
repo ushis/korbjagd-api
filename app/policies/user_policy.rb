@@ -4,13 +4,13 @@ class UserPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       else
-        scope.where(id: user.id)
+        scope.none
       end
     end
   end
 
   def show?
-    true
+    record == user || user.admin?
   end
 
   def create?
@@ -32,14 +32,6 @@ class UserPolicy < ApplicationPolicy
       attrs << :username
     else
       attrs
-    end
-  end
-
-  def serializer
-    if record == user || user.try(:admin?)
-      ProfileSerializer
-    else
-      UserSerializer
     end
   end
 end

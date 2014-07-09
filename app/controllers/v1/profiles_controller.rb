@@ -1,41 +1,57 @@
 class V1::ProfilesController < V1::ApplicationController
-  before_action :authorize
+  skip_before_action :authenticate, only: [:create]
+
+  before_action :find_user, only: [:show, :update, :destroy]
 
   # GET /v1/profile
   def show
-    render json: current_user, root: :user, serializer: ProfileSerializer
+    render json: @user, root: :user, serializer: ProfileSerializer
+  end
+
+  # POST /v1/profile
+  def create
+    @user = User.new(user_params)
+    authorize @user
+
+    if @user.save
+      WelcomeMailJob.new.async.perform(@user)
+      render json: @user, status: 201, root: :user, serializer: ProfileSerializer
+    else
+      render_error 422, @user.errors
+    end
   end
 
   # PATCH /v1/profile
   def update
-    if current_user.update_attributes(user_params)
-      render json: current_user, root: :user, serializer: ProfileSerializer
+    if @user.update_attributes(user_params)
+      render json: @user, root: :user, serializer: ProfileSerializer
     else
-      render_error 422, current_user.errors
+      render_error 422, @user.errors
     end
   end
 
   # DELETE /v1/profile
   def destroy
-    if current_user.destroy
-      GoodbyeMailJob.new.async.perform(current_user)
+    if @user.destroy
+      GoodbyeMailJob.new.async.perform(@user)
       render json: nil, status: 204
     else
-      render_error 422, current_user.errors
+      render_error 422, @user.errors
     end
   end
 
   private
 
+  # Finds the current user
+  def find_user
+    @user = current_user
+    authorize @user
+  end
+
   # Returns the permitted user parameters
   def user_params
     params
       .require(:user)
-      .permit(*policy(current_user).permitted_attributes)
-  end
-
-  # Authorizes an action on the current user
-  def authorize
-    super(current_user)
+      .permit(*policy(@user || User.new).permitted_attributes)
   end
 end
