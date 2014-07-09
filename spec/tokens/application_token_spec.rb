@@ -1,250 +1,268 @@
 require 'rails_helper'
 
 describe ApplicationToken do
-  describe '::TTL' do
-    let(:ttl) { ApplicationToken::TTL }
+  context 'as plain class' do
+    describe '.ttl' do
+      it 'raises NotImplementedError' do
+        expect { ApplicationToken.ttl }.to raise_error(NotImplementedError)
+      end
+    end
 
-    it 'is 1 day' do
-      expect(ttl).to eq(1.day)
+    describe '.scope' do
+      it 'raises NotImplementedError' do
+        expect { ApplicationToken.scope }.to raise_error(NotImplementedError)
+      end
+    end
+
+    describe '.for' do
+      let(:user) { User.new(id: rand(1000)) }
+
+      it 'raises NotImplementedError' do
+        expect { ApplicationToken.for(user) }.to raise_error(NotImplementedError)
+      end
+    end
+
+    describe '.from_s' do
+      let(:token) { AuthToken.for(User.new(id: rand(1000))).to_s }
+
+      it 'raises NotImplementedError' do
+        expect {
+          ApplicationToken.from_s(token)
+        }.to raise_error(NotImplementedError)
+      end
     end
   end
 
-  describe '.scope' do
-    let(:scope) { ApplicationToken.scope }
-
-    it 'is "ApplicationToken"' do
-      expect(scope).to eq('ApplicationToken')
+  context 'as super class' do
+    let(:dummy) do
+      Class.new(ApplicationToken) { ttl 1.day; scope :dummy }
     end
-  end
 
-  describe '.for' do
-    let(:user) { User.new(id: rand(1000)) }
+    describe '.ttl' do
+      let(:ttl) { dummy.ttl }
 
-    context 'without ttl' do
-      let(:token) { ApplicationToken.for(user) }
+      it 'is 1 day' do
+         expect(ttl).to eq(1.day)
+      end
+    end
+
+    describe '.scope' do
+      let(:scope) { dummy.scope }
+
+      it 'is :dummy' do
+        expect(scope).to eq(:dummy)
+      end
+    end
+
+    describe '.for' do
+      let(:user) { User.new(id: rand(1000)) }
+      let(:token) { dummy.for(user) }
 
       it 'has the same id as the record' do
         expect(token.id).to eq(user.id)
       end
 
-      it 'expires in the default ttl' do
-        expect(token.exp).to eq(ApplicationToken::TTL.from_now.to_i)
+      it 'expires after the ttl' do
+        expect(token.exp).to eq(dummy.ttl.from_now.to_i)
       end
 
       it 'has a valid scope' do
-        expect(token.scope).to eq(ApplicationToken.scope)
+        expect(token.scope).to eq(dummy.scope)
       end
     end
 
-    context 'with ttl' do
-      let(:token) { ApplicationToken.for(user, ttl) }
-      let(:ttl) { 3.days }
+    describe '.from_s' do
+      let(:token_string) { dummy.new(id, exp, scope).to_s }
+      let(:id) { rand(1000) }
 
-      it 'has the same id as the record' do
-        expect(token.id).to eq(user.id)
-      end
+      context 'not expired' do
+        let(:exp) { 2.days.from_now.to_i }
 
-      it 'expires in the given ttl' do
-        expect(token.exp).to eq(ttl.from_now.to_i)
-      end
+        context 'valid scope' do
+          let(:scope) { dummy.scope }
 
-      it 'has the scope "ApplicationToken"' do
-        expect(token.scope).to eq(ApplicationToken.scope)
-      end
-    end
-  end
+          context 'valid signature' do
+            let(:token) { dummy.from_s(token_string) }
 
-  describe '.from_s' do
-    let(:token_string) { ApplicationToken.new(id, exp, scope).to_s }
-    let(:id) { rand(1000) }
+            it 'is a dummy' do
+              expect(token).to be_a(dummy)
+            end
 
-    context 'not expired' do
-      let(:exp) { 2.days.from_now.to_i }
+            it 'has the specified id' do
+              expect(token.id).to eq(id)
+            end
 
-      context 'valid scope' do
-        let(:scope) { ApplicationToken.scope }
+            it 'has the specified expiration date' do
+              expect(token.exp).to eq(exp)
+            end
 
-        context 'valid signature' do
-          let(:token) { ApplicationToken.from_s(token_string) }
-
-          it 'is a ApplicationToken' do
-            expect(token).to be_a(ApplicationToken)
+            it 'has the specified scope' do
+              expect(token.scope).to eq(scope.to_s)
+            end
           end
 
-          it 'has the specified id' do
-            expect(token.id).to eq(id)
-          end
+          context 'invalid signature' do
+            let(:invalid_token_string) { "#{token_string}x" }
 
-          it 'has the specified expiration date' do
-            expect(token.exp).to eq(exp)
-          end
-
-          it 'has the specified scope' do
-            expect(token.scope).to eq(scope)
+            it 'raises JWT::DecodeError' do
+              expect {
+                dummy.from_s(invalid_token_string)
+              }.to raise_error(JWT::DecodeError)
+            end
           end
         end
 
-        context 'invalid signature' do
-          let(:token) { "#{token_string}x" }
+        context 'invalid scope' do
+          let(:scope) { :invalid }
 
-          it 'raises an error' do
+          it 'raises JWT::DecodeError' do
             expect {
-              ApplicationToken.from_s(token)
+              dummy.from_s(token_string)
             }.to raise_error(JWT::DecodeError)
           end
         end
       end
 
-      context 'invalid scope' do
-        let(:scope) { 'InvalidScope' }
+      context 'expired' do
+        let(:exp) { 3.days.ago.to_i }
 
-        it 'raises an error' do
-          expect {
-            ApplicationToken.from_s(token_string)
-          }.to raise_error(JWT::DecodeError)
+        context 'valid scope' do
+          let(:scope) { dummy.scope }
+
+          it 'raises JWT::DecodeError' do
+            expect {
+              dummy.from_s(token_string)
+            }.to raise_error(JWT::DecodeError)
+          end
+        end
+
+        context 'invalid scope' do
+          let(:scope) { :invalid }
+
+          it 'raises JWT::DecodeError' do
+            expect {
+              dummy.from_s(token_string)
+            }.to raise_error(JWT::DecodeError)
+          end
         end
       end
     end
 
-    context 'expired' do
-      let(:exp) { 3.days.ago.to_i }
+    describe '#expired?' do
+      let(:expired?) { dummy.new(rand(1000), exp).expired? }
+
+      context 'expired' do
+        let(:exp) { 3.days.ago.to_i }
+
+        it 'is true' do
+          expect(expired?).to be true
+        end
+      end
+
+      context 'not expired' do
+        let(:exp) { 1.day.from_now.to_i }
+
+        it 'is false' do
+          expect(expired?).to be false
+        end
+      end
+    end
+
+    describe '#valid_scope?' do
+      let(:valid_scope?) do
+        dummy.new(rand(100), rand(100), scope).valid_scope?
+      end
 
       context 'valid scope' do
-        let(:scope) { ApplicationToken.scope }
+        let(:scope) { dummy.scope }
 
-        it 'raises an error' do
-          expect {
-            ApplicationToken.from_s(token_string)
-          }.to raise_error(JWT::DecodeError)
+        it 'is true' do
+          expect(valid_scope?).to be true
         end
       end
 
       context 'invalid scope' do
-        let(:scope) { 'InvalidScope' }
+        let(:scope) { :invalid }
 
-        it 'raises an error' do
-          expect {
-            ApplicationToken.from_s(token_string)
-          }.to raise_error(JWT::DecodeError)
+        it 'is false' do
+          expect(valid_scope?).to be false
         end
       end
     end
-  end
 
-  describe '#expired?' do
-    let(:expired?) { ApplicationToken.new(rand(1000), exp).expired? }
-
-    context 'expired' do
-      let(:exp) { 3.days.ago.to_i }
-
-      it 'is true' do
-        expect(expired?).to be true
-      end
-    end
-
-    context 'not expired' do
-      let(:exp) { 1.day.from_now.to_i }
-
-      it 'is false' do
-        expect(expired?).to be false
-      end
-    end
-  end
-
-  describe '#valid_scope?' do
-    let(:valid_scope?) do
-      ApplicationToken.new(rand(100), rand(100), scope).valid_scope?
-    end
-
-    context 'valid scope' do
-      let(:scope) { ApplicationToken.scope }
-
-      it 'is true' do
-        expect(valid_scope?).to be true
-      end
-    end
-
-    context 'invalid scope' do
-      let(:scope) { 'InvalidScope' }
-
-      it 'is false' do
-        expect(valid_scope?).to be false
-      end
-    end
-  end
-
-  describe '#invalid_scope?' do
-    let(:invalid_scope?) do
-      ApplicationToken.new(rand(100), rand(100), scope).invalid_scope?
-    end
-
-    context 'valid scope' do
-      let(:scope) { ApplicationToken.scope }
-
-      it 'is false' do
-        expect(invalid_scope?).to be false
-      end
-    end
-
-    context 'invalid scope' do
-      let(:scope) { 'InvalidScope' }
-
-      it 'is true' do
-        expect(invalid_scope?).to be true
-      end
-    end
-  end
-
-  describe '#to_s' do
-    let(:token_string) { ApplicationToken.new(id, exp, scope).to_s }
-    let(:scope) { ApplicationToken.scope }
-    let(:exp) { 3.days.from_now }
-    let(:id) { rand(1000) }
-
-    it 'is a string' do
-      expect(token_string).to be_a(String)
-    end
-
-    context 'with same attributes' do
-      let(:other_token_string) { ApplicationToken.new(id, exp, scope).to_s }
-
-      it 'must equal' do
-        expect(token_string).to eq(other_token_string)
-      end
-    end
-
-    context 'with different attributes' do
-      let(:other_token_string) do
-        ApplicationToken.new(other_id, other_exp, other_scope).to_s
+    describe '#invalid_scope?' do
+      let(:invalid_scope?) do
+        dummy.new(rand(100), rand(100), scope).invalid_scope?
       end
 
-      context 'different id' do
-        let(:other_scope) { scope }
-        let(:other_exp) { exp }
-        let(:other_id) { id + 534 }
+      context 'valid scope' do
+        let(:scope) { dummy.scope }
 
-        it 'does not equal' do
-          expect(token_string).to_not eq(other_token_string)
+        it 'is false' do
+          expect(invalid_scope?).to be false
         end
       end
 
-      context 'different expiration date' do
-        let(:other_scope) { scope }
-        let(:other_exp) { exp - 779 }
-        let(:other_id) { id }
+      context 'invalid scope' do
+        let(:scope) { :invalid }
 
-        it 'does not equal' do
-          expect(token_string).to_not eq(other_token_string)
+        it 'is true' do
+          expect(invalid_scope?).to be true
+        end
+      end
+    end
+
+    describe '#to_s' do
+      let(:token_string) { dummy.new(id, exp, scope).to_s }
+      let(:scope) { dummy.scope }
+      let(:exp) { 3.days.from_now }
+      let(:id) { rand(1000) }
+
+      it 'is a string' do
+        expect(token_string).to be_a(String)
+      end
+
+      context 'with same attributes' do
+        let(:other_token_string) { dummy.new(id, exp, scope).to_s }
+
+        it 'must equal' do
+          expect(token_string).to eq(other_token_string)
         end
       end
 
-      context 'different scope' do
-        let(:other_scope) { 'AuthToken' }
-        let(:other_exp) { exp }
-        let(:other_id) { id }
+      context 'with different attributes' do
+        let(:other_token_string) do
+          dummy.new(other_id, other_exp, other_scope).to_s
+        end
 
-        it 'does not equal' do
-          expect(token_string).to_not eq(other_token_string)
+        context 'different id' do
+          let(:other_scope) { scope }
+          let(:other_exp) { exp }
+          let(:other_id) { id + 534 }
+
+          it 'does not equal' do
+            expect(token_string).to_not eq(other_token_string)
+          end
+        end
+
+        context 'different expiration date' do
+          let(:other_scope) { scope }
+          let(:other_exp) { exp - 779 }
+          let(:other_id) { id }
+
+          it 'does not equal' do
+            expect(token_string).to_not eq(other_token_string)
+          end
+        end
+
+        context 'different scope' do
+          let(:other_scope) { 'AuthToken' }
+          let(:other_exp) { exp }
+          let(:other_id) { id }
+
+          it 'does not equal' do
+            expect(token_string).to_not eq(other_token_string)
+          end
         end
       end
     end

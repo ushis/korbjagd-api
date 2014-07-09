@@ -5,8 +5,8 @@ describe AuthToken do
     expect(AuthToken).to be < ApplicationToken
   end
 
-  describe '::TTL' do
-    let(:ttl) { AuthToken::TTL }
+  describe '.ttl' do
+    let(:ttl) { AuthToken.ttl }
 
     it 'is 1 day' do
       expect(ttl).to eq(1.day)
@@ -16,8 +16,8 @@ describe AuthToken do
   describe '.scope' do
     let(:scope) { AuthToken.scope }
 
-    it 'is "AuthToken"' do
-      expect(scope).to eq('AuthToken')
+    it 'is :auth' do
+      expect(scope).to eq(:auth)
     end
   end
 end

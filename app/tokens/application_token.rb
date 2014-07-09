@@ -1,16 +1,31 @@
 class ApplicationToken < Struct.new(:id, :exp, :scope)
+  class_attribute :ttl_value, :scope_value, instance_accessor: false
 
-  # Default time to live
-  TTL = 1.day
+  # Returns (and sets) the tokens ttl
+  def self.ttl(ttl=nil)
+    if !ttl.nil?
+      self.ttl_value = ttl
+    elsif !ttl_value.nil?
+      self.ttl_value
+    else
+      raise NotImplementedError.new('The tokens time to life is not specified.')
+    end
+  end
 
-  # Returns the tokens scope
-  def self.scope
-    self.to_s
+  # Returns (and sets) the tokens scope
+  def self.scope(scope=nil)
+    if !scope.nil?
+      self.scope_value = scope
+    elsif !scope_value.nil?
+      self.scope_value
+    else
+      raise NotImplementedError.new('The tokens scope is not specified.')
+    end
   end
 
   # Returns a new token for a record
-  def self.for(record, ttl=TTL)
-    new(record.id, ttl.from_now.to_i, self.scope)
+  def self.for(record)
+    new(record.id, ttl.from_now.to_i, scope)
   end
 
   # Returns a token from a token string
@@ -30,7 +45,7 @@ class ApplicationToken < Struct.new(:id, :exp, :scope)
 
   # Returns true if the token is in scope else false
   def valid_scope?
-    scope == self.class.scope
+    scope.to_s == self.class.scope.to_s
   end
 
   # Same as valid_scope? but the other way around

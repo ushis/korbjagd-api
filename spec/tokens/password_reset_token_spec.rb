@@ -5,8 +5,8 @@ describe PasswordResetToken do
     expect(PasswordResetToken).to be < ApplicationToken
   end
 
-  describe '::TTL' do
-    let(:ttl) { PasswordResetToken::TTL }
+  describe '.ttl' do
+    let(:ttl) { PasswordResetToken.ttl }
 
     it 'is 30 minutes' do
       expect(ttl).to eq(30.minutes)
@@ -16,8 +16,8 @@ describe PasswordResetToken do
   describe '.scope' do
     let(:scope) { PasswordResetToken.scope }
 
-    it 'is "PasswordResetToken"' do
-      expect(scope).to eq('PasswordResetToken')
+    it 'is :password_reset' do
+      expect(scope).to eq(:password_reset)
     end
   end
 end
