@@ -354,6 +354,13 @@ Resource represents one particular basket identified by its *id*.
               "details": {}
             }
 
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
 + Response 404 (application/json)
 
         {
@@ -394,6 +401,13 @@ Resource represents one particular basket identified by its *id*.
               "error": "Unauthorized",
               "details": {}
             }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
 
 + Response 404 (application/json)
 
@@ -746,6 +760,13 @@ Resource represents one particular basket photo.
               "details": {}
             }
 
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
 + Response 404 (application/json)
 
         {
@@ -829,6 +850,13 @@ Resource represents one particular basket photo.
               "details": {}
             }
 
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
 + Response 404 (application/json)
 
         {
@@ -873,6 +901,13 @@ Resource represents one particular basket photo.
               "error": "Unauthorized",
               "details": {}
             }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
 
 + Response 404 (application/json)
 
@@ -1024,26 +1059,6 @@ Resource represents one particular user identified by its *id*.
               "updated_at": "2014-06-30T18:01:21.119Z"
             }
           }
-        }
-
-+ Response 401 (application/json)
-
-  + Headers
-
-            WWW-Authenticate: Bearer realm="API"
-
-  + Body
-
-            {
-              "error": "Unauthorized",
-              "details": {}
-            }
-
-+ Response 403 (application/json)
-
-        {
-          "error": "Forbidden",
-          "details": {}
         }
 
 + Response 404 (application/json)
@@ -1220,6 +1235,13 @@ Resource represents one particular user avatar.
               "details": {}
             }
 
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
 + Response 404 (application/json)
 
         {
@@ -1253,6 +1275,13 @@ Resource represents one particular user avatar.
             "created_at": "2014-06-30T16:46:34.998Z",
             "updated_at": "2014-06-30T16:46:34.998Z"
           }
+        }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
         }
 
 + Response 404 (application/json)
@@ -1302,6 +1331,13 @@ Resource represents one particular user avatar.
               "details": {}
             }
 
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
+
 + Response 404 (application/json)
 
         {
@@ -1346,6 +1382,13 @@ Resource represents one particular user avatar.
               "error": "Unauthorized",
               "details": {}
             }
+
++ Response 403 (application/json)
+
+        {
+          "error": "Forbidden",
+          "details": {}
+        }
 
 + Response 404 (application/json)
 

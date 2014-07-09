@@ -7,13 +7,13 @@ Rails.application.routes.draw do
     resources :sessions,       only: [:create]
     resources :categories,     only: [:index]
 
-    resources :users do
+    resources :users, only: [:index, :show, :create, :update, :destroy] do
       resource :avatar, only: [:show, :create, :update, :destroy]
     end
 
-    resources :baskets do
-      resources :comments
-      resource  :photo, only: [:show, :create, :update, :destroy]
+    resources :baskets, only: [:index, :show, :create, :update, :destroy] do
+      resource  :photo,    only: [:show, :create, :update, :destroy]
+      resources :comments, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end
