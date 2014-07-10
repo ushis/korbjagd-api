@@ -11,7 +11,9 @@ class Basket < ActiveRecord::Base
   validates :user_id,   presence: true
   validates :name,      presence: true, length: {maximum: 255}
   validates :latitude,  presence: true, uniqueness: {scope: :longitude}
+  validates :latitude,  numericality: { greater_than: -90, less_than: 90 }
   validates :longitude, presence: true
+  validates :longitude, numericality: { greater_than: -180, less_than: 180 }
 
   # Filters for baskets inside the given bounds
   def self.inside_bounds(bounds)
@@ -33,13 +35,13 @@ class Basket < ActiveRecord::Base
     SQL
   end
 
-  # Assigns categories to the basket
-  def category_ids=(ids)
-    self.categories = Category.where(id: ids)
-  end
-
   # Returns the baskets photo or raises ActiveRecord::RecordNotFound
   def photo!
     photo || raise(ActiveRecord::RecordNotFound.new('Basket has no photo.'))
+  end
+
+  # Returns the baskets point
+  def to_point
+    Point.new(latitude, longitude)
   end
 end

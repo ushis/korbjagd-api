@@ -44,6 +44,11 @@ class Bounds < Struct.new(:south_west, :north_east)
   alias :ne  :north_east
   alias :ne= :north_east=
 
+  # Returns true if the point is inside the bounds else false
+  def include?(pnt)
+    south < pnt.lat && west < pnt.lng && north > pnt.lat && east > pnt.lng
+  end
+
   private
 
   # Extends the south west point if necessary

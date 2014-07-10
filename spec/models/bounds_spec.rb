@@ -131,4 +131,26 @@ describe Bounds do
       end
     end
   end
+
+  describe '#include?' do
+    let(:include?) { bounds.include?(point) }
+
+    let(:bounds) { Bounds.new(Point.new(12, 12), Point.new(50, 50)) }
+
+    context 'when the point is inside' do
+      let(:point) { Point.new(13, 13) }
+
+      it 'is true' do
+        expect(include?).to be true
+      end
+    end
+
+    context 'when the point is outside' do
+      let(:point) { Point.new(11.7, 13) }
+
+      it 'is false' do
+        expect(include?).to be false
+      end
+    end
+  end
 end

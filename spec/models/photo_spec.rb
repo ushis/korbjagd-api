@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-describe Avatar do
+describe Photo do
   describe 'associations' do
-    it { is_expected.to belong_to(:user).inverse_of(:avatar) }
+    it { is_expected.to belong_to(:basket).inverse_of(:photo) }
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of(:user_id) }
+    it { is_expected.to validate_presence_of(:basket_id) }
     it { is_expected.to validate_presence_of(:image) }
   end
 
   describe '#image' do
-    subject { build(:avatar).image }
+    subject { build(:photo).image }
 
     it 'it is a ImageUploader' do
       expect(subject).to be_a(ImageUploader)
