@@ -18,4 +18,6 @@ group :development, :test do
   gem 'spring'
   gem 'sqlite3'
   gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
+  gem 'factory_girl_rails'
 end

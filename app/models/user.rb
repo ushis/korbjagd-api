@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, unless: -> (u) { u.password.blank? }
 
   before_validation :normalize_username
+  before_validation :normalize_email
 
   # Filters admins
   def self.admins
@@ -59,12 +60,17 @@ class User < ActiveRecord::Base
     PasswordResetToken.for(self).to_s
   end
 
-  # Returns the avatar or raises ActiveRecord::RecordNotFound.
+  # Returns true if the has notifications enabled else false
+  def reachable?
+    notifications_enabled?
+  end
+
+  # Returns the avatar or raises ActiveRecord::RecordNotFound
   def avatar!
     avatar || raise(ActiveRecord::RecordNotFound.new('User has no avatar.'))
   end
 
-  # Returns the email address with the username.
+  # Returns the email address with the username
   #
   #   user.email_with_name
   #   #=> "harry <dirty@harry.com>"
@@ -76,8 +82,13 @@ class User < ActiveRecord::Base
 
   private
 
-  # Downcases the username
+  # Downcases and strips the username
   def normalize_username
-    self.username = username.to_s.downcase
+    self.username = username.to_s.strip.downcase
+  end
+
+  # Strips the email
+  def normalize_email
+    self.email = email.to_s.strip
   end
 end
