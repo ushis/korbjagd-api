@@ -1,4 +1,4 @@
-class ImageUploader < CarrierWave::Uploader::Base
+class ImageUploader < DataUrlUploader
 
   def move_to_store
     true

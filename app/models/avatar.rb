@@ -5,10 +5,4 @@ class Avatar < ActiveRecord::Base
   validates :image,   presence: true
 
   mount_uploader :image, ImageUploader
-
-  def image=(image)
-    super(DataUrlFile.new(image))
-  rescue ArgumentError
-    super(image)
-  end
 end
