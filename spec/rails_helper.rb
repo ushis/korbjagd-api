@@ -41,4 +41,9 @@ RSpec.configure do |config|
 
   # Include Factory Girl
   config.include FactoryGirl::Syntax::Methods
+
+  # Set CarrierWave root folder
+  config.before :all do
+    CarrierWave.configure { |c| c.root = Rails.root.join('tmp', 'test') }
+  end
 end
