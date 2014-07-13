@@ -1013,7 +1013,8 @@ Resource represents the user identified by *Authorization* header.
             {
               "user": {
                 "email": "peter@example.com",
-                "notifications_enabled": false
+                "notifications_enabled": false,
+                "password_current": "secret"
               }
             }
 
