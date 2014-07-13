@@ -23,7 +23,9 @@ class V1::ProfilesController < V1::ApplicationController
 
   # PATCH /v1/profile
   def update
-    if @user.update_attributes(user_params)
+    if !@user.authenticate(password)
+      unauthorized
+    elsif @user.update_attributes(user_params)
       render json: @user, root: :user, serializer: ProfileSerializer
     else
       render_error 422, @user.errors
@@ -53,5 +55,10 @@ class V1::ProfilesController < V1::ApplicationController
     params
       .require(:user)
       .permit(*policy(@user || User.new).permitted_attributes)
+  end
+
+  # Returns the :password_current parameter
+  def password
+    params.require(:user).try(:fetch, :password_current, nil)
   end
 end

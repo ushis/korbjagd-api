@@ -32,6 +32,6 @@ class V1::PasswordResetsController < V1::ApplicationController
 
   # Returns the email parameter
   def email
-    params.require(:user)[:email]
+    params.require(:user).try(:fetch, :email, nil)
   end
 end
