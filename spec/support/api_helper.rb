@@ -24,19 +24,32 @@ module ApiHelper
     end
   end
 
-  def json_profile(user)
+  def json_user(user)
     json_record(user) do |u|
       {
         id: u.id,
         username: u.username,
+        avatar: u.avatar
+      }
+    end
+  end
+
+  def json_profile(user)
+    json_record(user) do |u|
+      json_user(u).merge({
         email: u.email,
         admin: u.admin,
         notifications_enabled: u.notifications_enabled,
         baskets_count: u.baskets.count,
         created_at: u.created_at.as_json,
-        updated_at: u.created_at.as_json,
-        avatar: json_avatar(u.avatar)
-      }
+        updated_at: u.updated_at.as_json,
+      })
+    end
+  end
+
+  def json_session(user)
+    json_record(user) do |u|
+      json_profile(u).merge({auth_token: u.auth_token})
     end
   end
 
