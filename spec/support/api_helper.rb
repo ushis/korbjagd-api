@@ -1,6 +1,6 @@
 module ApiHelper
   def set_auth_header(token)
-    request.headers['Authorization'] = "Bearer #{token}"
+    request.headers['Authorization'] = "Bearer #{token}" unless token.nil?
   end
 
   def json
@@ -56,10 +56,17 @@ module ApiHelper
   def json_avatar(avatar)
     json_record(avatar) do |a|
       {
-        url: a.url,
+        id: a.id,
+        url: a.image.url,
         created_at: a.created_at.as_json,
         updated_at: a.updated_at.as_json
       }
     end
+  end
+
+  def base64_png
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABH'\
+    'NCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lm'\
+    'lua3NjYXBlLm9yZ5vuPBoAAAANSURBVAiZY/j//z8DAAj8Av6Fzas0AAAAAElFTkSuQmCC'
   end
 end
