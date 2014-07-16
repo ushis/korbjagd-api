@@ -451,7 +451,7 @@ describe V1::ProfilesController do
     end
 
     describe 'with invalid token' do
-      before { set_auth_header(user.password_reset_token) }
+      before { set_auth_header(user.auth_token) }
 
       describe 'response' do
         before { send_request }
@@ -467,7 +467,7 @@ describe V1::ProfilesController do
     end
 
     describe 'with valid token' do
-      before { set_auth_header(user.auth_token) }
+      before { set_auth_header(user.delete_token) }
 
       describe 'response' do
         before { send_request }

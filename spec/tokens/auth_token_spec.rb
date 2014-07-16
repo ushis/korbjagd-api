@@ -9,7 +9,7 @@ describe AuthToken do
     let(:ttl) { AuthToken.ttl }
 
     it 'is 1 day' do
-      expect(ttl).to eq(1.day)
+      expect(ttl).to eq(1.month)
     end
   end
 

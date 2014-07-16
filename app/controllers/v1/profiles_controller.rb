@@ -61,4 +61,13 @@ class V1::ProfilesController < V1::ApplicationController
   def password
     params.require(:user).try(:fetch, :password_current, nil)
   end
+
+  # Returns the current user authenticated by delete token on :destroy requests
+  def current_user
+    @current_user ||= if params[:action] == 'destroy'
+      User.find_by_delete_token(token)
+    else
+      super
+    end
+  end
 end

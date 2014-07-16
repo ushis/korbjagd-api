@@ -1,4 +1,4 @@
 class AuthToken < ApplicationToken
-  ttl 1.day
+  ttl 1.month
   scope :auth
 end

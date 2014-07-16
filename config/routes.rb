@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     resources :categories,     only: [:index]
 
     resource  :profile, only: [:show, :create, :update, :destroy] do
-      resource :avatar, only: [:show, :create, :update, :destroy]
+      resource :avatar,       only: [:show, :create, :update, :destroy]
+      resource :delete_token, only: [:create]
     end
 
     resources :baskets, only: [:index, :show, :create, :update, :destroy] do

@@ -1343,3 +1343,55 @@ Resource represents a password reset request for a user.
             ]
           }
         }
+
+# Group Delete Token
+
+## Delete Token [/v1/profile/delete_token]
+
+Resource represents a token used to delete a profile.
+
+### Delete Token Creation [POST]
+
++ Request (application/json)
+
+  + Headers
+
+            Authorization: Bearer JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u
+
+  + Body
+
+            {
+              "user": {
+                "password": "secret"
+              }
+            }
+
++ Response 200
+
+  + Body
+
+            {
+              "delete_token": {
+                "token": "JIUzI1NiJ9.eyJpZCI6MSw.rGux2s9X3u"
+              }
+            }
+
++ Response 401 (application/json)
+
+  + Headers
+
+            WWW-Authenticate: Bearer realm="API"
+
+  + Body
+
+            {
+              "error": "Unauthorized",
+              "details": {}
+            }
+
++ Response 422 (application/json)
+
+        {
+          "error": "Unprocessable Entity",
+          "details": {}
+        }

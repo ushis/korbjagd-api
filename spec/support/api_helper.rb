@@ -108,6 +108,14 @@ module ApiHelper
     end
   end
 
+  def json_token(token)
+    json_record(token) do |t|
+      {
+        token: t
+      }
+    end
+  end
+
   def base64_png
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABH'\
     'NCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lm'\

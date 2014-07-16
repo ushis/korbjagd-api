@@ -45,6 +45,13 @@ class User < ActiveRecord::Base
     nil
   end
 
+  # Returns a user found by profile delete token or nil
+  def self.find_by_delete_token(token)
+    find_by_id(ProfileDeleteToken.from_s(token.to_s).id)
+  rescue JWT::DecodeError
+    nil
+  end
+
   # Finds a user by email/username
   def self.find_by_email_or_username(q)
     where('users.email = :q OR users.username = :q', q: q).first
@@ -58,6 +65,11 @@ class User < ActiveRecord::Base
   # Returns a new password reset token for the user
   def password_reset_token
     PasswordResetToken.for(self).to_s
+  end
+
+  # Returns a new profile delete token for the user
+  def delete_token
+    ProfileDeleteToken.for(self).to_s
   end
 
   # Returns true if the has notifications enabled else false

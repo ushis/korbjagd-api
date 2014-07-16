@@ -249,6 +249,50 @@ describe User do
     end
   end
 
+  describe '.find_by_delete_token' do
+    before do
+      5.times { create(:user) }
+    end
+
+    subject { User.find_by_delete_token(token) }
+
+    let(:user) { User.first }
+
+    context 'given a valid token' do
+      let(:token) { ProfileDeleteToken.for(user).to_s }
+
+      it 'is the correct user' do
+        expect(subject).to eq(user)
+      end
+    end
+
+    context 'given an invalid token' do
+      let(:token) { "#{ProfileDeleteToken.for(user).to_s}x" }
+
+      it 'is nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'given an expired token' do
+      let(:token) do
+        ProfileDeleteToken.new(user.id, 1.day.ago.to_i, ProfileDeleteToken.scope).to_s
+      end
+
+      it 'is nil' do
+        expect(subject).to be_nil
+      end
+    end
+
+    context 'given a token with invalid scope' do
+      let(:token) { AuthToken.for(user).to_s }
+
+      it 'is nil' do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
   describe 'find_by_email_or_username' do
     before do
       5.times { create(:user) }
@@ -301,6 +345,17 @@ describe User do
     let(:user) { create(:user) }
 
     it 'is a short cut for PasswordResetToken.for(user).to_s' do
+      expect(subject).to eq(token)
+    end
+  end
+
+  describe '#delete_token' do
+    subject { user.delete_token }
+
+    let(:token) { ProfileDeleteToken.for(user).to_s }
+    let(:user) { create(:user) }
+
+    it 'is a short cut for ProfileDeleteToken.for(user).to_s' do
       expect(subject).to eq(token)
     end
   end
