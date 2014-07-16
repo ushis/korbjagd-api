@@ -144,7 +144,7 @@ describe V1::AvatarsController do
       it { is_expected.to respond_with(204) }
 
       it 'deletes the users avatar' do
-        expect(user.avatar).to be_nil
+        expect(user_with_avatar.reload.avatar).to be_nil
       end
     end
   end

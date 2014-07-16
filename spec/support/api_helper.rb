@@ -64,6 +64,17 @@ module ApiHelper
     end
   end
 
+  def json_photo(photo)
+    json_record(photo) do |p|
+      {
+        id: p.id,
+        url: p.image.url,
+        created_at: p.created_at.as_json,
+        updated_at: p.updated_at.as_json
+      }
+    end
+  end
+
   def base64_png
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABH'\
     'NCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lm'\
