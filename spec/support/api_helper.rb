@@ -91,6 +91,23 @@ module ApiHelper
     end
   end
 
+  def json_basket(basket)
+    json_record(basket) do |b|
+      {
+        id: b.id,
+        latitude: b.latitude,
+        longitude: b.longitude,
+        name: b.name,
+        comments_count: b.comments_count,
+        created_at: b.created_at.as_json,
+        updated_at: b.updated_at.as_json,
+        user: json_user(b.user),
+        photo: json_photo(b.photo),
+        categories: json_categories(b.categories)
+      }
+    end
+  end
+
   def base64_png
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABH'\
     'NCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lm'\
