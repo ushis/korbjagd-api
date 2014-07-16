@@ -22,7 +22,7 @@ class V1::PasswordResetsController < V1::ApplicationController
 
   # Returns the current user authenticated by password reset token
   def current_user
-    @current_user ||= User.find_by_password_reset_token(auth_token)
+    @current_user ||= User.find_by_password_reset_token(token)
   end
 
   # Returns the permitted user parameters

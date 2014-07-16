@@ -58,7 +58,7 @@ class ApplicationController < ActionController::API
 
   # Returns the current user or nil, if this is an anonymous request.
   def current_user
-    @current_user ||= User.find_by_auth_token(auth_token)
+    @current_user ||= User.find_by_auth_token(token)
   end
 
   # Ensures that the request is done by an authenticated user
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::API
   end
 
   # Returns the requests auth token
-  def auth_token
+  def token
     request.headers['Authorization'].to_s.split.last
   end
 end
