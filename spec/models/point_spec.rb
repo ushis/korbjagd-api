@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe Point do
+  describe 'validations' do
+    it { is_expected.to validate_presence_of(:latitude) }
+    it { is_expected.to validate_numericality_of(:latitude) }
+    it { is_expected.to validate_presence_of(:longitude) }
+    it { is_expected.to validate_numericality_of(:longitude) }
+  end
+
   describe '.parse_all' do
     let(:points) { Point.parse_all(point_strings) }
 

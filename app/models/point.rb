@@ -1,4 +1,8 @@
 class Point < Struct.new(:latitude, :longitude)
+  include ActiveModel::Validations
+
+  validates :latitude,  presence: true, numericality: true
+  validates :longitude, presence: true, numericality: true
 
   # Parses multiple point strings.
   def self.parse_all(strings)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706110451) do
+ActiveRecord::Schema.define(version: 20140719175924) do
 
   create_table "avatars", force: true do |t|
     t.integer  "user_id",    null: false
@@ -30,11 +30,13 @@ ActiveRecord::Schema.define(version: 20140706110451) do
     t.integer  "comments_count", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sector_id"
   end
 
   add_index "baskets", ["latitude", "longitude"], name: "index_baskets_on_latitude_and_longitude", unique: true
   add_index "baskets", ["latitude"], name: "index_baskets_on_latitude"
   add_index "baskets", ["longitude"], name: "index_baskets_on_longitude"
+  add_index "baskets", ["sector_id"], name: "index_baskets_on_sector_id"
   add_index "baskets", ["user_id"], name: "index_baskets_on_user_id"
 
   create_table "baskets_categories", id: false, force: true do |t|
@@ -71,6 +73,12 @@ ActiveRecord::Schema.define(version: 20140706110451) do
   end
 
   add_index "photos", ["basket_id"], name: "index_photos_on_basket_id"
+
+  create_table "sectors", force: true do |t|
+    t.integer  "baskets_count", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username",                              null: false

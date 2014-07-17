@@ -1,5 +1,6 @@
 class Basket < ActiveRecord::Base
-  belongs_to :user, inverse_of: :baskets, counter_cache: true
+  belongs_to :user,   inverse_of: :baskets, counter_cache: true
+  belongs_to :sector, inverse_of: :baskets, counter_cache: true
 
   has_one :photo, inverse_of: :basket, dependent: :destroy
 
@@ -9,31 +10,17 @@ class Basket < ActiveRecord::Base
   has_and_belongs_to_many :categories, inverse_of: :baskets, readonly: true
 
   validates :user_id,   presence: true
+  validates :sector_id, presence: true
   validates :name,      presence: true, length: {maximum: 255}
   validates :latitude,  presence: true, uniqueness: {scope: :longitude}
-  validates :latitude,  numericality: { greater_than: -90, less_than: 90 }
+  validates :latitude,  numericality: {greater_than: -90, less_than: 90}
   validates :longitude, presence: true
-  validates :longitude, numericality: { greater_than: -180, less_than: 180 }
+  validates :longitude, numericality: {greater_than: -180, less_than: 180}
 
-  # Filters for baskets inside the given bounds
-  def self.inside_bounds(bounds)
-    where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
-      baskets.latitude > :s AND
-      baskets.longitude > :w AND
-      baskets.latitude < :n AND
-      baskets.longitude < :e
-    SQL
-  end
+  before_validation :set_sector
 
-  # Filters for baskets outside the given bounds
-  def self.outside_bounds(bounds)
-    where(<<-SQL, s: bounds.s, w: bounds.w, n: bounds.n, e: bounds.e)
-      baskets.latitude < :s OR
-      baskets.longitude < :w OR
-      baskets.latitude > :n OR
-      baskets.longitude > :e
-    SQL
-  end
+  after_create  :touch_sector
+  after_destroy :touch_sector
 
   # Like ActiveRecord::Calculations#pluck, but builds a hash for each row.
   #
@@ -55,7 +42,19 @@ class Basket < ActiveRecord::Base
   end
 
   # Returns the baskets point
-  def to_point
+  def point
     Point.new(latitude, longitude)
+  end
+
+  private
+
+  # Sets the sector
+  def set_sector
+    self.sector = Sector.around(point)
+  end
+
+  # Touches the sector
+  def touch_sector
+    sector.touch
   end
 end

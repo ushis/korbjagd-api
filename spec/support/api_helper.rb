@@ -91,6 +91,18 @@ module ApiHelper
     end
   end
 
+  def json_baskets(baskets)
+    baskets.map do |basket|
+      json_record(basket) do |b|
+        {
+          id: b.id,
+          latitude: b.latitude,
+          longitude: b.longitude
+        }
+      end
+    end
+  end
+
   def json_basket(basket)
     json_record(basket) do |b|
       {

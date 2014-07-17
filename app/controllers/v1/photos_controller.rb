@@ -6,6 +6,7 @@ class V1::PhotosController < V1::ApplicationController
 
   # GET /v1/baskets/:basket_id/photo
   def show
+    fresh_when(@photo, public: true)
     render json: @photo
   end
 

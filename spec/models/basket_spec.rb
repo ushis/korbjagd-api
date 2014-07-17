@@ -11,44 +11,32 @@ describe Basket do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:user_id) }
+    it { is_expected.to validate_presence_of(:sector_id) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to ensure_length_of(:name).is_at_most(255) }
     it { is_expected.to validate_presence_of(:latitude) }
     it { is_expected.to validate_numericality_of(:latitude).is_greater_than(-90).is_less_than(90) }
     it { is_expected.to validate_presence_of(:longitude) }
     it { is_expected.to validate_numericality_of(:longitude).is_greater_than(-180).is_less_than(180) }
-    it { is_expected.to validate_uniqueness_of(:latitude).scoped_to(:longitude) }
   end
 
-  describe '.inside_bounds' do
-    before { create_list(:basket, 10) }
+  describe 'before_validation' do
+    let(:basket) { build(:basket) }
 
-    let(:inside) { Basket.inside_bounds(bounds) }
-    let(:outside) { Basket.where.not(id: inside) }
-    let(:bounds) { build(:bounds) }
-
-    it 'includes only baskets inside the given bounds' do
-      expect(inside).to all satisfy { |b| bounds.include?(b.to_point) }
+    describe 'side effects' do
+      it 'finds itself a sector' do
+        expect { basket.valid? }.to change { basket.sector }.from(nil)
+      end
     end
 
-    it 'does not miss one' do
-      expect(outside).to all satisfy { |b| !bounds.include?(b.to_point) }
-    end
-  end
+    describe 'sector' do
+      before { basket.valid? }
 
-  describe '.outside_bounds' do
-    before { create_list(:basket, 10) }
+      subject { basket.sector }
 
-    let(:outside) { Basket.outside_bounds(bounds) }
-    let(:inside) { Basket.where.not(id: outside) }
-    let(:bounds) { build(:bounds) }
-
-    it 'includes only baskets outside the given bounds' do
-      expect(outside).to all satisfy { |b| !bounds.include?(b.to_point) }
-    end
-
-    it 'does not miss one' do
-      expect(inside).to all satisfy { |b| bounds.include?(b.to_point) }
+      it 'includes the basket' do
+        expect(subject.include?(basket.point)).to be true
+      end
     end
   end
 
@@ -96,8 +84,8 @@ describe Basket do
     end
   end
 
-  describe '#to_point' do
-    subject { basket.to_point }
+  describe '#point' do
+    subject { basket.point }
 
     let(:basket) { build(:basket) }
 

@@ -1,21 +1,20 @@
 class V1::BasketsController < V1::ApplicationController
   skip_before_action :authenticate, only: [:index, :show]
 
+  before_action :find_sector, only: [:index]
   before_action :find_basket, only: [:show, :update, :destroy]
 
-  # GET /v1/baskets
+  # GET /v1/sectors/:sector_id/baskets
   def index
-    @baskets = policy_scope(Basket).inside_bounds(inside)
-    @baskets = @baskets.outside_bounds(outside) if outside
-
-    render json: {
-      baskets: @baskets.pluck_h(:id, :latitude, :longitude),
-      params: {inside: inside, outside: outside}
-    }
+    if stale?(@sector, public: true)
+      @baskets = policy_scope(@sector.baskets)
+      render json: {baskets: @baskets.pluck_h(:id, :latitude, :longitude)}
+    end
   end
 
   # GET /v1/baskets/:id
   def show
+    fresh_when(@basket, public: true)
     render json: @basket
   end
 
@@ -54,6 +53,11 @@ class V1::BasketsController < V1::ApplicationController
 
   private
 
+  # Finds the requested sector
+  def find_sector
+    @sector = Sector.find(params[:sector_id])
+  end
+
   # Finds the requested basket
   def find_basket
     @basket = Basket.find(params[:id])
@@ -65,17 +69,5 @@ class V1::BasketsController < V1::ApplicationController
     params
       .require(:basket)
       .permit(*policy(@basket || Basket.new).permitted_attributes)
-  end
-
-  # Returns the bounds calculated from the :inside parameter
-  def inside
-    @inside ||= Bounds.build(*Point.parse_all(params[:inside]))
-  end
-
-  # Returns the bounds calculated from the :outside parameter or nil
-  def outside
-    @outside ||= if params[:outside].present?
-      Bounds.build(*Point.parse_all(params[:outside]))
-    end
   end
 end

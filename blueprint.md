@@ -83,17 +83,13 @@ Resource represents a collection of basket categories.
 
 # Group Basket
 
-## Basket Collection [/v1/baskets{?inside,outside}]
+## Basket Collection [/v1/{sector_id}/baskets]
 
-Resource represents a collection of baskets located inside the given *bounds*.
+Resource represents a collection of baskets located inside the given sector.
 
 + Parameters
 
-  + inside (required, array, `['10.1,70.21', '31.33,24.12']`) ...
-    coordinates of at least 2 points inside the area to look for baskets
-
-  + outside (optional, array, `['14.73,50.3', '20.12,79.11']`) ...
-    same as `inside` but excludes all baskets inside this area
+  + sector_id (required, integer, `13`) ... id identifying the sector
 
 ### Retrieve Baskets [GET]
 
@@ -116,29 +112,7 @@ Resource represents a collection of baskets located inside the given *bounds*.
               "latitude": 51.33860169398093,
               "longitude": 12.389745712280273
             }
-          ],
-          "params": {
-            "inside": {
-              "south_west": {
-                "latitude": 24.12,
-                "longitude": 10.1
-              },
-              "north_east": {
-                "latitude": 70.21,
-                "longitude": 31.33
-              }
-            },
-            "outside": {
-              "south_west": {
-                "latitude": 14.73,
-                "longitude": 50.3
-              },
-              "north_east": {
-                "latitude": 20.12,
-                "longitude": 79.11
-              }
-            }
-          }
+          ]
         }
 
 ## Basket Creation [/v1/baskets]

@@ -4,6 +4,7 @@ class V1::AvatarsController < V1::ApplicationController
 
   # GET /v1/profile/avatar
   def show
+    fresh_when(@avatar, public: false)
     render json: @avatar
   end
 

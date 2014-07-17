@@ -1,6 +1,34 @@
 require 'rails_helper'
 
 describe V1::BasketsController do
+  describe 'GET #index' do
+    let(:baskets) { create_list(:basket, 10) }
+
+    let(:sector) { baskets.first.sector }
+
+    before { get :index, {sector_id: sector_id} }
+
+    context 'invalid sector_id' do
+      let(:sector_id) { -1 }
+
+      it { is_expected.to respond_with(404) }
+    end
+
+    context 'valid sector_id' do
+      let(:sector_id) { sector.id }
+
+      it { is_expected.to respond_with(200) }
+
+      it 'has at least one basket' do
+        expect(json['baskets']).to_not be_empty
+      end
+
+      it 'responds with the sectors baskets' do
+        expect(json['baskets']).to eq(json_baskets(sector.baskets))
+      end
+    end
+  end
+
   describe 'GET #show' do
     let(:basket) { create(:basket) }
 
