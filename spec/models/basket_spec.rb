@@ -21,9 +21,7 @@ describe Basket do
   end
 
   describe '.inside_bounds' do
-    before do
-      10.times { create(:basket) }
-    end
+    before { create_list(:basket, 10) }
 
     let(:inside) { Basket.inside_bounds(bounds) }
     let(:outside) { Basket.where.not(id: inside) }
@@ -39,9 +37,7 @@ describe Basket do
   end
 
   describe '.outside_bounds' do
-    before do
-      10.times { create(:basket) }
-    end
+    before { create_list(:basket, 10) }
 
     let(:outside) { Basket.outside_bounds(bounds) }
     let(:inside) { Basket.where.not(id: outside) }
@@ -53,6 +49,26 @@ describe Basket do
 
     it 'does not miss one' do
       expect(inside).to all satisfy { |b| bounds.include?(b.to_point) }
+    end
+  end
+
+  describe '.pluck_h' do
+    let!(:baskets) { create_list(:basket, 4) }
+
+    let(:plucked) do
+      baskets.map do |b|
+        {
+          id: b.id,
+          latitude: b.latitude,
+          longitude: b.longitude
+        }
+      end
+    end
+
+    subject { Basket.pluck_h(:id, :latitude, :longitude) }
+
+    it 'is a array of hashes with cols as keys' do
+      expect(subject).to match_array(plucked)
     end
   end
 

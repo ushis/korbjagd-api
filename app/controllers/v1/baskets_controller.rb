@@ -8,10 +8,10 @@ class V1::BasketsController < V1::ApplicationController
     @baskets = policy_scope(Basket).inside_bounds(inside)
     @baskets = @baskets.outside_bounds(outside) if outside
 
-    render json: @baskets,
-      each_serializer: BasketsSerializer,
-      meta_key: :params,
-      meta: {inside: inside, outside: outside}
+    render json: {
+      baskets: @baskets.pluck_h(:id, :latitude, :longitude),
+      params: {inside: inside, outside: outside}
+    }
   end
 
   # GET /v1/baskets/:id
