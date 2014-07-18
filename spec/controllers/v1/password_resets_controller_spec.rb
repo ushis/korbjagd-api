@@ -82,8 +82,12 @@ describe V1::PasswordResetsController do
           expect(subject.to).to match_array([user.email])
         end
 
+        let(:token) do
+          subject.body.raw_source.scan(/https?:\/\/[^\s]+\/([^\s\/]+)/)[0][0]
+        end
+
         it 'includes the password reset token' do
-          expect(subject.body.raw_source).to include(user.password_reset_token)
+          expect(PasswordResetToken.from_s(token).id).to eq(user.id)
         end
       end
     end
