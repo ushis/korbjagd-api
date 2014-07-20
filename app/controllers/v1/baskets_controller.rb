@@ -56,7 +56,7 @@ class V1::BasketsController < V1::ApplicationController
 
   # Finds the requested sector
   def find_sector
-    @sector = Sector.find(params[:sector_id])
+    @sector = Sector.find_or_create_by_id(params[:sector_id])
   end
 
   # Finds the requested basket

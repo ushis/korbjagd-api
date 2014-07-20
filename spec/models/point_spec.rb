@@ -47,4 +47,12 @@ describe Point do
       expect { subject.lng = lng }.to change { subject.longitude }.to(lng)
     end
   end
+
+  describe '#to_s' do
+    subject { build(:point) }
+
+    it 'is a string including latitude and longitude' do
+      expect(subject.to_s).to eq("(#{subject.latitude},#{subject.longitude})")
+    end
+  end
 end

@@ -11,28 +11,36 @@ class Sector < ActiveRecord::Base
   NORTH_EAST = Point.new(90.0, 180.0)
 
   # Number of sectors per column
-  ROWS = (NORTH_EAST.lat - SOUTH_WEST.lat) / SIZE
+  ROWS = ((NORTH_EAST.lat - SOUTH_WEST.lat) / SIZE).ceil
 
   # Number of Sectors per row
-  COLS = (NORTH_EAST.lng - SOUTH_WEST.lng) / SIZE
+  COLS = ((NORTH_EAST.lng - SOUTH_WEST.lng) / SIZE).ceil
 
-  # Returns a sector found by id
+  validates :id, presence: true, numericality:
+    {only_integer: true, greater_than_or_equal_to: 0, less_than: ROWS * COLS}
+
+  # Returns a sector found or created by id
   #
-  # Raises ActiveRecord::RecordNotFound on error
-  def self.find(id)
-    if valid_id?(id)
-      find_or_create_by(id: id.to_i)
-    else
-      raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'id'=#{id}")
-    end
+  # Raises ActiveRecord::RecordNotFound for invalid ids
+  def self.find_or_create_by_id(id)
+    find_or_create_by!(id: id.to_i)
+  rescue ActiveRecord::RecordNotUnique
+    retry
+  rescue ActiveRecord::RecordInvalid
+    raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'id'=#{id}")
   end
 
   # Returns the sector including the given point or nil
-  def self.around(point)
-    return nil unless valid_point?(point)
-    x = (point.lng - SOUTH_WEST.lng).div(SIZE)
-    y = (point.lat - SOUTH_WEST.lat).div(SIZE)
-    find_or_initialize_by(id: (x * ROWS) + y)
+  #
+  # Raises ActiveRecord::RecordNotFound for invalid points
+  def self.find_or_create_by_point(point)
+    if point.try(:valid?) && in_bounds?(point)
+      x = (point.lng - SOUTH_WEST.lng).div(SIZE)
+      y = (point.lat - SOUTH_WEST.lat).div(SIZE)
+      find_or_create_by_id((x * ROWS) + y)
+    else
+      raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'point'=#{point}")
+    end
   end
 
   # Returns the south boundary
@@ -72,16 +80,9 @@ class Sector < ActiveRecord::Base
 
   private
 
-  # Returns true if the passed id is valid else false
-  def self.valid_id?(id)
-    id = id.to_i
-    id >= 0 && id < ROWS * COLS
-  end
-
-  # Returns true if the passed point is valid else false
-  def self.valid_point?(point)
-    point.is_a?(Point) && point.valid? &&
-      point.lat > SOUTH_WEST.lat && point.lng > SOUTH_WEST.lng &&
-      point.lat < NORTH_EAST.lat && point.lng < NORTH_EAST.lng
+  # Return true if the given point is inside the world
+  def self.in_bounds?(pnt)
+    pnt.lat > SOUTH_WEST.lat && pnt.lng > SOUTH_WEST.lng &&
+    pnt.lat < NORTH_EAST.lat && pnt.lng < NORTH_EAST.lng
   end
 end

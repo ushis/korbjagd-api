@@ -9,4 +9,9 @@ class Point < Struct.new(:latitude, :longitude)
 
   alias :lng  :longitude
   alias :lng= :longitude=
+
+  # Returns a string representation of the point
+  def to_s
+    "(#{latitude},#{longitude})"
+  end
 end
