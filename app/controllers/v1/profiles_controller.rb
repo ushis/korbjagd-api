@@ -5,8 +5,9 @@ class V1::ProfilesController < V1::ApplicationController
 
   # GET /v1/profile
   def show
-    fresh_when(@user, public: false)
-    render json: @user, root: :user, serializer: ProfileSerializer
+    if stale?(@user, public: false)
+      render json: @user, root: :user, serializer: ProfileSerializer
+    end
   end
 
   # POST /v1/profile

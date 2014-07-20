@@ -4,8 +4,9 @@ class V1::AvatarsController < V1::ApplicationController
 
   # GET /v1/profile/avatar
   def show
-    fresh_when(@avatar, public: false)
-    render json: @avatar
+    if stale?(@avatar, public: false)
+      render json: @avatar
+    end
   end
 
   # POST /v1/profile/avatar

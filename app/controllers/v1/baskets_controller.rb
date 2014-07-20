@@ -14,8 +14,9 @@ class V1::BasketsController < V1::ApplicationController
 
   # GET /v1/baskets/:id
   def show
-    fresh_when(@basket, public: true)
-    render json: @basket
+    if stale?(@basket, public: true)
+      render json: @basket
+    end
   end
 
   # POST /v1/baskets
