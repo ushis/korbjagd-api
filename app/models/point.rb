@@ -1,8 +1,10 @@
 class Point < Struct.new(:latitude, :longitude)
   include ActiveModel::Validations
 
-  validates :latitude,  presence: true, numericality: true
-  validates :longitude, presence: true, numericality: true
+  validates :latitude,  presence: true
+  validates :latitude,  numericality: {greater_than: -90.0, less_than: 90.0}
+  validates :longitude, presence: true
+  validates :longitude, numericality: {greater_than: -180.0, less_than: 180.0}
 
   alias :lat  :latitude
   alias :lat= :latitude=

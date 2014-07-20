@@ -34,7 +34,7 @@ class Sector < ActiveRecord::Base
   #
   # Raises ActiveRecord::RecordNotFound for invalid points
   def self.find_or_create_by_point(point)
-    if point.try(:valid?) && in_bounds?(point)
+    if point.try(:valid?)
       x = (point.lng - SOUTH_WEST.lng).div(SIZE)
       y = (point.lat - SOUTH_WEST.lat).div(SIZE)
       find_or_create_by_id((x * ROWS) + y)
@@ -76,13 +76,5 @@ class Sector < ActiveRecord::Base
   # Returns true if the sector includes the given point else false
   def include?(pnt)
     pnt.lat >= south && pnt.lng >= west && pnt.lat < north && pnt.lng < east
-  end
-
-  private
-
-  # Return true if the given point is inside the world
-  def self.in_bounds?(pnt)
-    pnt.lat > SOUTH_WEST.lat && pnt.lng > SOUTH_WEST.lng &&
-    pnt.lat < NORTH_EAST.lat && pnt.lng < NORTH_EAST.lng
   end
 end
