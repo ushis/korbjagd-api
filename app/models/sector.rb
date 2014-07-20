@@ -21,7 +21,7 @@ class Sector < ActiveRecord::Base
   # Raises ActiveRecord::RecordNotFound on error
   def self.find(id)
     if valid_id?(id)
-      find_or_initialize_by(id: id.to_i)
+      find_or_create_by(id: id.to_i)
     else
       raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'id'=#{id}")
     end
