@@ -4,6 +4,9 @@ class V1::CategoriesController < V1::ApplicationController
   # GET /v1/categories
   def index
     @categories = policy_scope(Category)
-    render json: @categories
+
+    if stale?(@categories, public: true)
+      render json: @categories
+    end
   end
 end
