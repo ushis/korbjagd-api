@@ -46,6 +46,16 @@ class Basket < ActiveRecord::Base
     Point.new(latitude, longitude)
   end
 
+  # Returns a cache key that can be used to identify this basket
+  def cache_key
+    [super, user.try(:cache_key)].compact.join('/')
+  end
+
+  # Returns the last time this basket or the associated user was touched
+  def last_modified
+    [updated_at, user.try(:updated_at)].compact.max
+  end
+
   private
 
   # Sets the sector

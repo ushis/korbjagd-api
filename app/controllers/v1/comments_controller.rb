@@ -7,12 +7,17 @@ class V1::CommentsController < V1::ApplicationController
   # GET /v1/baskets/:basket_id/comments
   def index
     @comments = policy_scope(@basket.comments).includes(user: :avatar)
-    render json: @comments
+
+    if stale?(@comments, public: true)
+      render json: @comments
+    end
   end
 
   # GET /v1/baskets/:basket_id/comments/:id
   def show
-    render json: @comment
+    if stale?(@comment, last_modified: @comment.last_modified, public: true)
+      render json: @comment
+    end
   end
 
   # POST /v1/baskets/:basket_id/comments

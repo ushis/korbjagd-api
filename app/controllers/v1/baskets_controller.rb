@@ -14,7 +14,7 @@ class V1::BasketsController < V1::ApplicationController
 
   # GET /v1/baskets/:id
   def show
-    if stale?([@basket, @basket.user], public: true)
+    if stale?(@basket, last_modified: @basket.last_modified, public: true)
       render json: @basket
     end
   end
