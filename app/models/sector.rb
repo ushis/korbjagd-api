@@ -21,25 +21,23 @@ class Sector < ActiveRecord::Base
 
   # Returns a sector found or created by id
   #
-  # Raises ActiveRecord::RecordNotFound for invalid ids
+  # Raises ActiveRecord::RecordInvalid for invalid ids
   def self.find_or_create_by_id(id)
     find_or_create_by!(id: id.to_i)
   rescue ActiveRecord::RecordNotUnique
     retry
-  rescue ActiveRecord::RecordInvalid
-    raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'id'=#{id}")
   end
 
   # Returns the sector including the given point or nil
   #
-  # Raises ActiveRecord::RecordNotFound for invalid points
+  # Raises ActiveRecord::RecordInvalid for invalid points
   def self.find_or_create_by_point(point)
-    if point.try(:valid?)
+    if point.valid?
       x = (point.lng - SOUTH_WEST.lng).div(SIZE)
       y = (point.lat - SOUTH_WEST.lat).div(SIZE)
       find_or_create_by_id((x * ROWS) + y)
     else
-      raise ActiveRecord::RecordNotFound.new("Couldn't find Sector with 'point'=#{point}")
+      raise ActiveRecord::RecordInvalid.new(point)
     end
   end
 

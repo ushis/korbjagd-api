@@ -18,7 +18,7 @@ describe Sector do
       it 'raises an error' do
         expect {
           Sector.find_or_create_by_id(-1)
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -72,7 +72,7 @@ describe Sector do
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
           Sector.find_or_create_by_point(point)
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 
@@ -82,7 +82,7 @@ describe Sector do
       it 'raises ActiveRecord::RecordNotFound' do
         expect {
           Sector.find_or_create_by_point(point)
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
 

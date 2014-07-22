@@ -61,7 +61,7 @@ class Basket < ActiveRecord::Base
   # Sets the sector
   def set_sector
     self.sector = Sector.find_or_create_by_point(point)
-  rescue ActiveRecord::RecordNotFound
+  rescue ActiveRecord::RecordInvalid
     self.sector = nil
   end
 
