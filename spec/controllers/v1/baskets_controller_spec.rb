@@ -279,6 +279,47 @@ describe V1::BasketsController do
           end
         end
       end
+
+      context 'the basket has no owner' do
+        before { foreign_basket.user.destroy }
+
+        let(:params) do
+          {
+            id: foreign_basket.id,
+            basket: {
+              name: SecureRandom.hex(12)
+            }
+          }
+        end
+
+        describe 'response' do
+          before { send_request }
+
+          it { is_expected.to respond_with(200) }
+
+          it 'responds with the basket' do
+            expect(json['basket']).to eq(json_basket(foreign_basket.reload))
+          end
+        end
+
+        describe 'side effects' do
+          it 'changes the owner' do
+            expect {
+              send_request
+            }.to change {
+              foreign_basket.reload.user
+            }.from(nil).to(user)
+          end
+
+          it 'changes the name' do
+            expect {
+              send_request
+            }.to change {
+              foreign_basket.reload.name
+            }.to(params[:basket][:name])
+          end
+        end
+      end
     end
   end
 

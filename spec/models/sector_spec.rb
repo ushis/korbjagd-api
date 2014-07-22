@@ -69,7 +69,7 @@ describe Sector do
     context 'invalid point' do
       let(:point) { Point.new(nil, 12.132) }
 
-      it 'raises ActiveRecord::RecordNotFound' do
+      it 'raises ActiveRecord::RecordInvalid' do
         expect {
           Sector.find_or_create_by_point(point)
         }.to raise_error(ActiveRecord::RecordInvalid)
@@ -79,7 +79,7 @@ describe Sector do
     context 'point out of bounds' do
       let(:point) { Point.new(112.12, 12.132) }
 
-      it 'raises ActiveRecord::RecordNotFound' do
+      it 'raises ActiveRecord::RecordInvalid' do
         expect {
           Sector.find_or_create_by_point(point)
         }.to raise_error(ActiveRecord::RecordInvalid)
