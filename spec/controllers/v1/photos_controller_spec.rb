@@ -96,6 +96,22 @@ describe V1::PhotosController do
               end
             end
 
+            context 'with a binary file upload' do
+              let(:post_params) do
+                {
+                  photo: {
+                    image: fixture_file_upload('sample.png', 'image/png', true)
+                  }
+                }
+              end
+
+              it { is_expected.to respond_with(422) }
+
+              it 'has error details' do
+                expect(json['details']['image']).to be_present
+              end
+            end
+
             context 'with valid params' do
               let(:post_params) do
                 {

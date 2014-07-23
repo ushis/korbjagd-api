@@ -78,7 +78,23 @@ describe V1::AvatarsController do
           it { is_expected.to respond_with(422) }
 
           it 'has error details' do
-            expect(json['details']).to be_present
+            expect(json['details']['image']).to be_present
+          end
+        end
+
+        context 'with a binary file upload' do
+          let(:params) do
+            {
+              avatar: {
+                image: fixture_file_upload('sample.png', 'image/png', true)
+              }
+            }
+          end
+
+          it { is_expected.to respond_with(422) }
+
+          it 'has error details' do
+            expect(json['details']['image']).to be_present
           end
         end
 
