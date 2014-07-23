@@ -45,7 +45,7 @@ class DataUrlUploader < CarrierWave::Uploader::Base
   # Hook into CarrierWave
   def cache!(file)
     super(DataUrlFile.new(file))
-  rescue ArgumentError
-    super(file)
+  rescue ArgumentError => e
+    raise CarrierWave::IntegrityError.new(e.to_s)
   end
 end
