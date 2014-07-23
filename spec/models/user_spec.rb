@@ -11,15 +11,20 @@ describe User do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:username) }
-    it { is_expected.to validate_uniqueness_of(:username) }
     it { is_expected.to ensure_length_of(:username).is_at_most(255) }
 
     it { is_expected.to validate_presence_of(:email) }
-    it { is_expected.to validate_uniqueness_of(:email) }
     it { is_expected.to ensure_length_of(:email).is_at_most(255) }
 
     it { is_expected.to validate_presence_of(:password).on(:create) }
     it { is_expected.to validate_confirmation_of(:password) }
+
+    describe 'uniqueness validations' do
+      before { create(:user) }
+
+      it { is_expected.to validate_uniqueness_of(:username) }
+      it { is_expected.to validate_uniqueness_of(:email) }
+    end
 
     describe 'password_confirmation' do
       context 'password is present' do
