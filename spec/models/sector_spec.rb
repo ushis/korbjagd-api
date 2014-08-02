@@ -17,7 +17,7 @@ describe Sector do
 
       it 'raises an error' do
         expect {
-          Sector.find_or_create_by_id(-1)
+          Sector.find_or_create_by_id(id)
         }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
