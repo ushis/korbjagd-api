@@ -1,4 +1,6 @@
 class Basket < ActiveRecord::Base
+  include PluckH
+
   belongs_to :user,   inverse_of: :baskets, counter_cache: true
   belongs_to :sector, inverse_of: :baskets, counter_cache: true
 
@@ -21,20 +23,6 @@ class Basket < ActiveRecord::Base
 
   after_create  :touch_sector
   after_destroy :touch_sector
-
-  # Like ActiveRecord::Calculations#pluck, but builds a hash for each row.
-  #
-  #   Basket.where('id < 10').pluck_h(:id, :latitude, :longitude)
-  #   #=> [
-  #   #     {id: 1, latitude: 12.123, longitude: -123.312}
-  #   #     {id: 4, latitude: 34.322, longitude: 23.123}
-  #   #     {id: 7, latitude: -9.276, longitude: 45.953}
-  #   #   ]
-  #
-  # Usefull for fast serialization.
-  def self.pluck_h(*cols)
-    pluck(*cols).map { |row| Hash[cols.zip(row)] }
-  end
 
   # Returns the baskets photo or raises ActiveRecord::RecordNotFound
   def photo!
