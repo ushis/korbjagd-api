@@ -16,20 +16,9 @@ class User < ActiveRecord::Base
   before_validation :normalize_username
   before_validation :normalize_email
 
-  # Filters admins
-  def self.admins
-    where(admin: true)
-  end
-
-  # Filters users with notifications enabled
-  def self.reachable
-    where(notifications_enabled: true)
-  end
-
-  # Exlcudes the specified users from the relation
-  def self.exclude(*users)
-    where.not(id: users)
-  end
+  scope :admins,    -> { where(admin: true) }
+  scope :reachable, -> { where(notifications_enabled: true) }
+  scope :exclude,   -> (*users) { where.not(id: users) }
 
   # Returns a user found by auth token or nil
   def self.find_by_auth_token(token)
