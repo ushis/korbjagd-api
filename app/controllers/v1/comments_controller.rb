@@ -22,7 +22,7 @@ class V1::CommentsController < V1::ApplicationController
 
   # POST /v1/baskets/:basket_id/comments
   def create
-    @comment = @basket.comments.new(comment_params.merge(user: @current_user))
+    @comment = @basket.comments.new(comment_params.merge(user: current_user))
     authorize @comment
 
     if @comment.save

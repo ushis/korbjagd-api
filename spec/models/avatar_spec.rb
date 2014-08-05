@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Avatar do
   describe 'associations' do
-    it { is_expected.to belong_to(:user).inverse_of(:avatar) }
+    it { is_expected.to belong_to(:user).inverse_of(:avatar).touch(true) }
   end
 
   describe 'validations' do

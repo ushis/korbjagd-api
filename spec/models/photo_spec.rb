@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Photo do
   describe 'associations' do
-    it { is_expected.to belong_to(:basket).inverse_of(:photo) }
+    it { is_expected.to belong_to(:basket).inverse_of(:photo).touch(true) }
   end
 
   describe 'validations' do

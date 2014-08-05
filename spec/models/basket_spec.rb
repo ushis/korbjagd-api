@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Basket do
   describe 'associations' do
     it { is_expected.to belong_to(:user).inverse_of(:baskets).counter_cache(true) }
+    it { is_expected.to belong_to(:sector).inverse_of(:baskets).counter_cache(true).touch(true) }
     it { is_expected.to have_one(:photo).inverse_of(:basket).dependent(:destroy) }
     it { is_expected.to have_many(:comments).inverse_of(:basket).dependent(:destroy).order(:created_at) }
     it { is_expected.to have_many(:commenters).through(:comments).source(:user) }

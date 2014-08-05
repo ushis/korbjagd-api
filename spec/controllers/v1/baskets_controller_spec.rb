@@ -168,6 +168,10 @@ describe V1::BasketsController do
           it 'has the posted name' do
             expect(json['basket']['name']).to eq(params[:basket][:name])
           end
+
+          it 'belongs to the current user' do
+            expect(json['basket']['user']).to eq(json_user(user))
+          end
         end
 
         describe 'side effects' do

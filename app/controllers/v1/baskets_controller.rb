@@ -21,7 +21,7 @@ class V1::BasketsController < V1::ApplicationController
 
   # POST /v1/baskets
   def create
-    @basket = @current_user.baskets.new(basket_params)
+    @basket = current_user.baskets.new(basket_params)
     authorize @basket
 
     if @basket.save

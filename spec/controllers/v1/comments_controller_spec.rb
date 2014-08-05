@@ -131,6 +131,10 @@ describe V1::CommentsController do
             expect(json['comment']['comment']).to \
               eq(post_params[:comment][:comment])
           end
+
+          it 'belongs to the current user' do
+            expect(json['comment']['user']).to eq(json_user(user))
+          end
         end
       end
     end

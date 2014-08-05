@@ -2,7 +2,7 @@ class Basket < ActiveRecord::Base
   include PluckH
 
   belongs_to :user,   inverse_of: :baskets, counter_cache: true
-  belongs_to :sector, inverse_of: :baskets, counter_cache: true
+  belongs_to :sector, inverse_of: :baskets, counter_cache: true, touch: true
 
   has_one :photo, inverse_of: :basket, dependent: :destroy
 
@@ -20,9 +20,6 @@ class Basket < ActiveRecord::Base
   validates :longitude, numericality: {greater_than: -180, less_than: 180}
 
   before_validation :set_sector
-
-  after_create  :touch_sector
-  after_destroy :touch_sector
 
   # Returns the baskets photo or raises ActiveRecord::RecordNotFound
   def photo!
@@ -51,10 +48,5 @@ class Basket < ActiveRecord::Base
     self.sector = Sector.find_or_create_by_point(point)
   rescue ActiveRecord::RecordInvalid
     self.sector = nil
-  end
-
-  # Touches the sector
-  def touch_sector
-    sector.touch
   end
 end
