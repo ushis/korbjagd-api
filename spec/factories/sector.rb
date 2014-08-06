@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :sector do
-    id { rand(Sector::ROWS * Sector::COLS) }
+    sequence(:id)
   end
 end

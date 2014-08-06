@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resource :delete_token, only: [:create]
     end
 
-    resources :sectors, only: [] do
+    resources :sectors, only: [:index, :show] do
       resources :baskets, only: [:index]
     end
 

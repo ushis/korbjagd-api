@@ -7,6 +7,7 @@ gem 'bcrypt', '~> 3.1.2'
 gem 'jwt'
 gem 'pundit'
 gem 'carrierwave', '~> 0.10.0'
+gem 'kaminari', '~> 0.16.1'
 gem 'dotenv-rails'
 gem 'sucker_punch'
 

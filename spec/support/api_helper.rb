@@ -128,6 +128,32 @@ module ApiHelper
     end
   end
 
+  def json_sectors(sectors)
+    sectors.map { |sector| json_sector(sector) }
+  end
+
+  def json_sector(sector)
+    json_record(sector) do |s|
+      {
+        id: s.id,
+        baskets_count: s.baskets_count,
+        south_west: json_point(s.south_west),
+        north_east: json_point(s.north_east),
+        updated_at: s.updated_at.as_json,
+        created_at: s.created_at.as_json
+      }
+    end
+  end
+
+  def json_point(point)
+    json_record(point) do |p|
+      {
+        latitude: p.lat,
+        longitude: p.lng
+      }
+    end
+  end
+
   def base64_png
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABH'\
     'NCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lm'\
