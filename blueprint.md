@@ -81,6 +81,92 @@ Resource represents a collection of basket categories.
           ]
         }
 
+# Group Sector
+
+## Sector Collection [/v1/sectors{?page}]
+
+Resource represents a collection of sectors.
+
++ Parameters
+
+  + page (optional, integer, `2`) ... the page number
+
+### Retrieve Sectors [GET]
+
++ Response 200 (application/json)
+
+        {
+          "sectors": [
+            {
+              "id": 718,
+              "baskets_count": 112,
+              "south_west": {
+                "latitude": 78,
+                "longitude": -42
+              },
+              "north_east": {
+                "latitude": 84,
+                "longitude": -36
+              },
+              "created_at": "2014-07-21T21:42:33.343Z",
+              "updated_at": "2014-07-21T21:42:33.345Z"
+            },
+            {
+              "id": 719,
+              "baskets_count": 41,
+              "south_west": {
+                "latitude": 84,
+                "longitude": -42
+              },
+              "north_east": {
+                "latitude": 90,
+                "longitude": -36
+              },
+              "created_at": "2014-07-24T05:32:49.279Z",
+              "updated_at": "2014-07-24T05:32:49.279Z"
+            }
+          ],
+          "params": {
+            "page": 2,
+            "total_pages": 5
+          }
+        }
+
+## Sector [/v1/sectors/{id}]
+
+### Retrieve Sector [GET]
+
++ Parameters
+
+  + id (required, integer, `12`) ... `id` identifying the sector
+
++ Response 200 (application/json)
+
+        {
+          "sector": {
+            "id": 719,
+            "baskets_count": 0,
+            "south_west": {
+              "latitude": 84,
+              "longitude": -42
+            },
+            "north_east": {
+              "latitude": 90,
+              "longitude": -36
+            },
+            "created_at": "2014-07-24T05:32:49.279Z",
+            "updated_at": "2014-07-24T05:32:49.279Z"
+          }
+        }
+
++ Response 404 (application/json)
+
+        {
+          "error": "Not Found",
+          "details": {}
+        }
+
+
 # Group Basket
 
 ## Basket Collection [/v1/{sector_id}/baskets]
