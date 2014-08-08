@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 describe Sector do
+  describe '.ROWS' do
+    subject { Sector::ROWS * Sector::SIZE }
+
+    it { is_expected.to eq(Sector::NORTH_EAST.lat - Sector::SOUTH_WEST.lat) }
+  end
+
+  describe '.COLS' do
+    subject { Sector::COLS * Sector::SIZE }
+
+    it { is_expected.to eq(Sector::NORTH_EAST.lng - Sector::SOUTH_WEST.lng) }
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:baskets) }
   end
@@ -119,25 +131,129 @@ describe Sector do
     end
   end
 
+  describe '#south' do
+    let(:sector) { build(:sector, id: id) }
+
+    subject { sector.south }
+
+    context 'when id is 0' do
+      let(:id) { 0 }
+
+      it { is_expected.to eq(Sector::SOUTH_WEST.lat) }
+    end
+
+    context 'when id is maximal' do
+      let(:id) { (Sector::ROWS * Sector::COLS) - 1 }
+
+      it { is_expected.to eq(Sector::NORTH_EAST.lat - Sector::SIZE) }
+    end
+
+    context 'when id is arbitrary' do
+      let(:x) { rand(Sector::COLS) }
+
+      let(:y) { rand(Sector::ROWS - 1) }
+
+      let(:id) { (x * Sector::ROWS) + y }
+
+      let(:other) { build(:sector, id: id + 1) }
+
+      it { is_expected.to eq(other.south - Sector::SIZE) }
+    end
+  end
+
+  describe '#west' do
+    let(:sector) { build(:sector, id: id) }
+
+    subject { sector.west }
+
+    context 'when id is 0' do
+      let(:id) { 0 }
+
+      it { is_expected.to eq(Sector::SOUTH_WEST.lng) }
+    end
+
+    context 'when id is maximal' do
+      let(:id) { (Sector::ROWS * Sector::COLS) - 1 }
+
+      it { is_expected.to eq(Sector::NORTH_EAST.lng - Sector::SIZE) }
+    end
+
+    context 'when id is arbitrary' do
+      let(:x) { rand(Sector::COLS - 1) }
+
+      let(:y) { rand(Sector::ROWS) }
+
+      let(:id) { (x * Sector::ROWS) + y }
+
+      let(:other) { build(:sector, id: id + Sector::ROWS) }
+
+      it { is_expected.to eq(other.west - Sector::SIZE) }
+    end
+  end
+
+  describe '#north' do
+    let(:sector) { build(:sector) }
+
+    subject { sector.north }
+
+    it { is_expected.to eq(sector.south + Sector::SIZE) }
+  end
+
+  describe '#east' do
+    let(:sector) { build(:sector) }
+
+    subject { sector.east }
+
+    it { is_expected.to eq(sector.west + Sector::SIZE) }
+  end
+
+  describe '#south_west' do
+    let(:sector) { build(:sector) }
+
+    subject { sector.south_west }
+
+    it { is_expected.to be_a(Point) }
+
+    it 'has the latitude of the sectors south boundary' do
+      expect(subject.latitude).to eq(sector.south)
+    end
+
+    it 'has the longitude of the sectors west boundary' do
+      expect(subject.longitude).to eq(sector.west)
+    end
+  end
+
+  describe '#north_east' do
+    let(:sector) { build(:sector) }
+
+    subject { sector.north_east }
+
+    it { is_expected.to be_a(Point) }
+
+    it 'has the latitude of the sectors north boundary' do
+      expect(subject.latitude).to eq(sector.north)
+    end
+
+    it 'has the longitude of the sectors east boundary' do
+      expect(subject.longitude).to eq(sector.east)
+    end
+  end
+
   describe '#include?' do
-    let(:sector) { build(:sector, id: 12) }
+    let(:sector) { build(:sector) }
 
     subject { sector.include?(point) }
 
     context 'point is inside the sector' do
       let(:point) { Point.new(sector.south + 0.7, sector.west + 1.1) }
 
-      it 'is true' do
-        expect(subject).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context 'point is outside the sector' do
-      let(:point) { Point.new(70.123, 1643.12) }
+      let(:point) { Point.new(sector.south - 0.7, sector.west - 1.1) }
 
-      it 'is false' do
-        expect(subject).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 end
