@@ -70,23 +70,59 @@ describe V1::SectorsController do
   end
 
   describe 'GET #show' do
-    before { get :show, {id: id} }
+    let(:send_request) { get :show, {id: id} }
 
     context 'with invalid id' do
+      before { send_request }
+
       let(:id) { 2549 }
 
       it { is_expected.to respond_with(404) }
     end
 
     context 'with valid id' do
-      let(:id) { rand(Sector::ROWS*Sector::COLS) }
+      context 'with non existing sector' do
+        let(:id) { rand(Sector::ROWS*Sector::COLS) }
 
-      let(:sector) { Sector.find(id) }
+        let(:sector) { Sector.find(id) }
 
-      it { is_expected.to respond_with(200) }
+        describe 'response' do
+          before { send_request }
 
-      it 'responds with the correct sector' do
-        expect(json['sector']).to eq(json_sector(sector))
+          it { is_expected.to respond_with(200) }
+
+          it 'responds with the correct sector' do
+            expect(json['sector']).to eq(json_sector(sector))
+          end
+        end
+
+        describe 'side effects' do
+          it 'creates a sector' do
+            expect { send_request }.to change { Sector.count }.by(1)
+          end
+        end
+      end
+
+      context 'with existing sector' do
+        let(:id) { sector.id }
+
+        let!(:sector) { create(:sector) }
+
+        describe 'response' do
+          before { send_request }
+
+          it { is_expected.to respond_with(200) }
+
+          it 'responds with the correct sector' do
+            expect(json['sector']).to eq(json_sector(sector))
+          end
+        end
+
+        describe 'side effects' do
+          it 'does not create a sector' do
+            expect { send_request }.to_not change { Sector.count }
+          end
+        end
       end
     end
   end
