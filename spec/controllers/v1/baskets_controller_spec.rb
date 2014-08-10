@@ -138,12 +138,14 @@ describe V1::BasketsController do
         let(:params) do
           {
             basket: {
-              latitude: build(:point).latitude,
-              longitude: build(:point).longitude,
+              latitude: point.latitude,
+              longitude: point.longitude,
               name: SecureRandom.hex(32)
             }
           }
         end
+
+        let(:point) { build(:point) }
 
         describe 'response' do
           before { send_request }
@@ -175,8 +177,18 @@ describe V1::BasketsController do
         end
 
         describe 'side effects' do
+          let!(:sector) { Sector.find_or_create_by_point(point) }
+
           it 'creates a basket' do
             expect { send_request }.to change { Basket.count }.by(1)
+          end
+
+          it 'increments the sectors baskets_count' do
+            expect {
+              send_request
+            }.to change {
+              sector.reload.baskets_count
+            }.by(1)
           end
         end
       end
@@ -280,6 +292,14 @@ describe V1::BasketsController do
             it 'does not change the longitude' do
               expect { send_request }.to_not change { basket.reload.longitude }
             end
+
+            it 'does not change the sectors baskets_count' do
+              expect {
+                send_request
+              }.to_not change {
+                basket.sector.reload.baskets_count
+              }
+            end
           end
         end
       end
@@ -357,10 +377,10 @@ describe V1::BasketsController do
     context 'with valid token' do
       before { set_auth_header(user.auth_token) }
 
-      before { send_request }
-
       context 'user does not own the basket' do
         let(:id) { foreign_basket.id }
+
+        before { send_request }
 
         it { is_expected.to respond_with(403) }
 
@@ -372,10 +392,26 @@ describe V1::BasketsController do
       context 'user owns the basket' do
         let(:id) { basket.id }
 
-        it { is_expected.to respond_with(204) }
+        describe 'response' do
+          before { send_request }
 
-        it 'destroys the basket' do
-          expect { basket.reload }.to raise_error(ActiveRecord::RecordNotFound)
+          it { is_expected.to respond_with(204) }
+
+          it 'destroys the basket' do
+            expect { basket.reload }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
+
+        describe 'side effects' do
+          let(:sector) { basket.sector }
+
+          it 'decrements the baskets_count' do
+            expect {
+              send_request
+            }.to change {
+              sector.reload.baskets_count
+            }.by(-1)
+          end
         end
       end
     end
