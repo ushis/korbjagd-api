@@ -41,13 +41,17 @@ describe V1::AvatarsController do
 
   [[:post, :create], [:patch, :update]].each do |method, action|
     describe "#{method} ##{action}" do
-      let!(:user) { create(:user) }
-
       before { set_auth_header(token) }
 
-      before { send method, action, params }
+      let!(:user) do
+        (action == :create) ? create(:user) : create(:user, :with_avatar)
+      end
+
+      let(:send_request) { send method, action, params }
 
       context 'without token' do
+        before { send_request }
+
         let(:token) { nil }
 
         let(:params) { nil }
@@ -56,6 +60,8 @@ describe V1::AvatarsController do
       end
 
       context 'with invalid token' do
+        before { send_request }
+
         let(:token) { user.password_reset_token }
 
         let(:params) { nil }
@@ -75,10 +81,24 @@ describe V1::AvatarsController do
             }
           end
 
-          it { is_expected.to respond_with(422) }
+          describe 'response' do
+            before { send_request }
 
-          it 'has error details' do
-            expect(json['details']['image']).to be_present
+            it { is_expected.to respond_with(422) }
+
+            it 'has error details' do
+              expect(json['details']['image']).to be_present
+            end
+          end
+
+          describe 'side effects' do
+            it 'does not change the users avatar' do
+              expect {
+                send_request
+              }.to_not change {
+                user.reload.avatar
+              }
+            end
           end
         end
 
@@ -91,14 +111,30 @@ describe V1::AvatarsController do
             }
           end
 
-          it { is_expected.to respond_with(422) }
+          describe 'response' do
+            before { send_request }
 
-          it 'has error details' do
-            expect(json['details']['image']).to be_present
+            it { is_expected.to respond_with(422) }
+
+            it 'has error details' do
+              expect(json['details']['image']).to be_present
+            end
+          end
+
+          describe 'side effects' do
+            it 'does not change the users avatar' do
+              expect {
+                send_request
+              }.to_not change {
+                user.reload.avatar
+              }
+            end
           end
         end
 
         context 'with valid params' do
+          before { send_request }
+
           let(:params) do
             {
               avatar: {
@@ -107,20 +143,22 @@ describe V1::AvatarsController do
             }
           end
 
+          let(:avatar) { user.reload.avatar }
+
           it 'is a success' do
             expect(response).to be_success
           end
 
           it 'responds with the avatar' do
-            expect(json['avatar']).to eq(json_avatar(user.avatar))
+            expect(json['avatar']).to eq(json_avatar(avatar))
           end
 
           it 'has the correct extension' do
-            expect(File.extname(user.avatar.image.path)).to eq('.png')
+            expect(File.extname(avatar.image.path)).to eq('.png')
           end
 
           it 'writes the file to disk' do
-            expect(File).to exist(user.avatar.image.path)
+            expect(File).to exist(avatar.image.path)
           end
         end
       end

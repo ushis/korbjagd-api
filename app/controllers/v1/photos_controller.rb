@@ -2,7 +2,8 @@ class V1::PhotosController < V1::ApplicationController
   skip_before_action :authenticate, only: [:show]
 
   before_action :find_basket
-  before_action :find_photo, only: [:show, :destroy]
+  before_action :find_photo,  only: [:create, :update]
+  before_action :find_photo!, only: [:show, :destroy]
 
   # GET /v1/baskets/:basket_id/photo
   def show
@@ -13,9 +14,6 @@ class V1::PhotosController < V1::ApplicationController
 
   # POST /v1/baskets/:basket_id/photo
   def create
-    @photo = @basket.build_photo
-    authorize @photo
-
     if @photo.update_attributes(photo_params)
       render json: @photo, status: 201
     else
@@ -25,9 +23,6 @@ class V1::PhotosController < V1::ApplicationController
 
   # PATCH /v1/baskets/:basket_id/photo
   def update
-    @photo = @basket.build_photo
-    authorize @photo
-
     if @photo.update_attributes(photo_params)
       render json: @photo
     else
@@ -53,6 +48,14 @@ class V1::PhotosController < V1::ApplicationController
 
   # Finds the requested photo
   def find_photo
+    @photo = @basket.photo || @basket.build_photo
+    authorize @photo
+  end
+
+  # Finds the requested photo
+  #
+  # Raises ActiveRecord::RecordNotFound on error
+  def find_photo!
     @photo = @basket.photo!
     authorize @photo
   end

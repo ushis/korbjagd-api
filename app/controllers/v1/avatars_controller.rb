@@ -1,6 +1,7 @@
 class V1::AvatarsController < V1::ApplicationController
   before_action :find_user
-  before_action :find_avatar, only: [:show, :destroy]
+  before_action :find_avatar,  only: [:create, :update]
+  before_action :find_avatar!, only: [:show, :destroy]
 
   # GET /v1/profile/avatar
   def show
@@ -11,9 +12,6 @@ class V1::AvatarsController < V1::ApplicationController
 
   # POST /v1/profile/avatar
   def create
-    @avatar = @user.build_avatar
-    authorize @avatar
-
     if @avatar.update_attributes(avatar_params)
       render json: @avatar, status: 201
     else
@@ -23,9 +21,6 @@ class V1::AvatarsController < V1::ApplicationController
 
   # PATCH /v1/profile/avatar
   def update
-    @avatar = @user.build_avatar
-    authorize @avatar
-
     if @avatar.update_attributes(avatar_params)
       render json: @avatar
     else
@@ -51,6 +46,14 @@ class V1::AvatarsController < V1::ApplicationController
 
   # Finds the requested avatar
   def find_avatar
+    @avatar = @user.avatar || @user.build_avatar
+    authorize @avatar
+  end
+
+  # Finds the requested avatar
+  #
+  # Raises ActiveRecord::RecordNotFound on error
+  def find_avatar!
     @avatar = @user.avatar!
     authorize @avatar
   end
