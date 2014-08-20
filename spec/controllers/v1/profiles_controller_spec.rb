@@ -436,7 +436,7 @@ describe V1::ProfilesController do
 
     let(:send_request) { delete :destroy }
 
-    describe 'without token' do
+    context 'without token' do
       describe 'response' do
         before { send_request }
 
@@ -450,7 +450,7 @@ describe V1::ProfilesController do
       end
     end
 
-    describe 'with invalid token' do
+    context 'with invalid token' do
       before { set_auth_header(user.auth_token) }
 
       describe 'response' do
@@ -466,7 +466,7 @@ describe V1::ProfilesController do
       end
     end
 
-    describe 'with valid token' do
+    context 'with valid token' do
       before { set_auth_header(user.delete_token) }
 
       describe 'response' do
