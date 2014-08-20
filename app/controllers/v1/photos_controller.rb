@@ -7,14 +7,14 @@ class V1::PhotosController < V1::ApplicationController
 
   # GET /v1/baskets/:basket_id/photo
   def show
-    if stale?(@photo, public: true)
+    if stale?(@photo, last_modified: @photo.last_modified, public: true)
       render json: @photo
     end
   end
 
   # POST /v1/baskets/:basket_id/photo
   def create
-    if @photo.update_attributes(photo_params)
+    if @photo.update_attributes(photo_params.merge(user: current_user))
       render json: @photo, status: 201
     else
       render_error 422, @photo.errors
@@ -23,7 +23,7 @@ class V1::PhotosController < V1::ApplicationController
 
   # PATCH /v1/baskets/:basket_id/photo
   def update
-    if @photo.update_attributes(photo_params)
+    if @photo.update_attributes(photo_params.merge(user: current_user))
       render json: @photo
     else
       render_error 422, @photo.errors

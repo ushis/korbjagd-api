@@ -7,7 +7,8 @@ class PhotoPolicy < ApplicationPolicy
   end
 
   def create?
-    BasketPolicy.new(user, record.basket).update?
+    !record.persisted? || record.user == user ||
+      BasketPolicy.new(user, record.basket).update?
   end
 
   def update?

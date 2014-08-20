@@ -35,17 +35,15 @@ describe V1::PhotosController do
     describe "#{method} ##{action}" do
       let(:user) { create(:user) }
 
-      let(:basket) do
-        if action == :create
-          create(:basket, user: user)
-        else
-          create(:basket, :with_photo, user: user)
-        end
+      let(:basket) { create(:basket, :with_photo, user: user) }
+
+      let(:foreign_basket) { create(:basket, :with_photo) }
+
+      let(:foreign_basket_with_photo) do
+        create(:basket, photo: build(:photo, user: user))
       end
 
-      let(:foreign_basket) do
-       (action == :create) ? create(:basket) : create(:basket, :with_photo)
-      end
+      let(:foreign_basket_without_photo) { create(:basket) }
 
       let(:send_request) { send method, action, params }
 
@@ -80,21 +78,67 @@ describe V1::PhotosController do
 
         context 'with valid basket_id' do
           context 'user is not basket owner' do
-            let(:params) { {basket_id: foreign_basket.id} }
+            context 'basket has a photo' do
+              context 'user is not the photo owner' do
+                let(:params) { {basket_id: foreign_basket.id} }
 
-            describe 'response' do
-              before { send_request }
+                describe 'response' do
+                  before { send_request }
 
-              it { is_expected.to respond_with(403) }
+                  it { is_expected.to respond_with(403) }
+                end
+
+                describe 'side effects' do
+                  it 'does not change the baskets photo' do
+                    expect {
+                      send_request
+                    }.to_not change {
+                      foreign_basket.reload.photo
+                    }
+                  end
+                end
+              end
+
+              context 'user is the photo owner' do
+                let(:params) do
+                  {
+                    basket_id: foreign_basket_with_photo.id,
+                    photo: {
+                      image: base64_png
+                    }
+                  }
+                end
+
+                before { send_request }
+
+                it 'is a success' do
+                  expect(response).to be_success
+                end
+
+                it 'assignes the photo to the user' do
+                  expect(json['photo']['user']).to eq(json_user(user))
+                end
+              end
             end
 
-            describe 'side effects' do
-              it 'does not change the baskets photo' do
-                expect {
-                  send_request
-                }.to_not change {
-                  foreign_basket.reload.photo
+            context 'basket without photo' do
+              let(:params) do
+                {
+                  basket_id: foreign_basket_without_photo.id,
+                  photo: {
+                    image: base64_png
+                  }
                 }
+              end
+
+              before { send_request }
+
+              it 'is a success' do
+                expect(response).to be_success
+              end
+
+              it 'assignes the photo to the user' do
+                expect(json['photo']['user']).to eq(json_user(user))
               end
             end
           end
@@ -181,6 +225,10 @@ describe V1::PhotosController do
 
               it 'responds with the photo' do
                 expect(json['photo']).to eq(json_photo(photo))
+              end
+
+              it 'assignes the photo to the user' do
+                expect(json['photo']['user']).to eq(json_user(user))
               end
 
               it 'has the correct extension' do

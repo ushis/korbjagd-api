@@ -325,7 +325,17 @@ Resource represents one particular basket identified by its *id*.
               "id": 7,
               "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:35:17.144Z",
-              "updated_at": "2014-06-30T17:35:17.144Z"
+              "updated_at": "2014-06-30T17:35:17.144Z",
+              "user": {
+                "id": 4,
+                "username": "bill",
+                "avatar": {
+                  "id": 2,
+                  "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+                  "created_at": "2014-06-30T17:18:03.989Z",
+                  "updated_at": "2014-06-30T18:01:21.119Z"
+                }
+              }
             },
             "categories": [
               {
@@ -390,7 +400,17 @@ Resource represents one particular basket identified by its *id*.
               "id": 7,
               "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
               "created_at": "2014-06-30T17:35:17.144Z",
-              "updated_at": "2014-06-30T17:35:17.144Z"
+              "updated_at": "2014-06-30T17:35:17.144Z",
+              "user": {
+                "id": 4,
+                "username": "bill",
+                "avatar": {
+                  "id": 2,
+                  "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+                  "created_at": "2014-06-30T17:18:03.989Z",
+                  "updated_at": "2014-06-30T18:01:21.119Z"
+                }
+              }
             },
             "categories": [
               {
@@ -509,7 +529,17 @@ Resource represents one particular basket photo.
             "id": 6,
             "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
+            "updated_at": "2014-06-30T16:46:34.998Z",
+            "user": {
+              "id": 4,
+              "username": "bill",
+              "avatar": {
+                "id": 2,
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+                "created_at": "2014-06-30T17:18:03.989Z",
+                "updated_at": "2014-06-30T18:01:21.119Z"
+              }
+            }
           }
         }
 
@@ -561,7 +591,17 @@ Resource represents one particular basket photo.
             "id": 6,
             "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
+            "updated_at": "2014-06-30T16:46:34.998Z",
+            "user": {
+              "id": 4,
+              "username": "bill",
+              "avatar": {
+                "id": 2,
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+                "created_at": "2014-06-30T17:18:03.989Z",
+                "updated_at": "2014-06-30T18:01:21.119Z"
+              }
+            }
           }
         }
 
@@ -596,7 +636,17 @@ Resource represents one particular basket photo.
             "id": 6,
             "url": "https://assets.korbjagd.de/uploads/photos/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
             "created_at": "2014-06-30T16:46:34.998Z",
-            "updated_at": "2014-06-30T16:46:34.998Z"
+            "updated_at": "2014-06-30T16:46:34.998Z",
+            "user": {
+              "id": 4,
+              "username": "bill",
+              "avatar": {
+                "id": 2,
+                "url": "https://assets.korbjagd.de/uploads/avatars/84f07d2b-ea51-462f-ac6c-559cb87d8ae9.png",
+                "created_at": "2014-06-30T17:18:03.989Z",
+                "updated_at": "2014-06-30T18:01:21.119Z"
+              }
+            }
           }
         }
 

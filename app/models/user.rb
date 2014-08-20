@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_one :avatar, inverse_of: :user, dependent: :destroy
 
+  has_many :photos,   inverse_of: :user
   has_many :baskets,  inverse_of: :user
   has_many :comments, inverse_of: :user, dependent: :destroy
 

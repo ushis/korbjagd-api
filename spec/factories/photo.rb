@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :photo do
+    user
     basket
     image <<-B64.gsub(/\s+/, '')
       data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABHN

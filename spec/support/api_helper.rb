@@ -69,6 +69,7 @@ module ApiHelper
       {
         id: p.id,
         url: p.image.url,
+        user: json_user(p.user),
         created_at: p.created_at.as_json,
         updated_at: p.updated_at.as_json
       }
