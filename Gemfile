@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.5'
+gem 'rails', '4.1.6'
 gem 'rails-api'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.8.1'
 gem 'bcrypt', '~> 3.1.2'
 gem 'jwt'
 gem 'pundit'

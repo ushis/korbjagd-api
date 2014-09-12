@@ -98,15 +98,13 @@ describe User do
       3.times { create(:user, :admin) }
     end
 
-    subject { User.admins }
+    subject { User.admins.to_a }
 
     it 'includes 3 users' do
       expect(subject.length).to eq(3)
     end
 
-    it 'includes only admins' do
-      expect(subject).to all(be_admin)
-    end
+    it { is_expected.to all(be_admin) }
   end
 
   describe '.reachable' do
@@ -115,15 +113,13 @@ describe User do
       3.times { create(:user, :not_reachable) }
     end
 
-    subject { User.reachable }
+    subject { User.reachable.to_a }
 
     it 'includes 5 users' do
       expect(subject.length).to eq(5)
     end
 
-    it 'includes only reachable users' do
-      expect(subject).to all(be_reachable)
-    end
+    it { is_expected.to all(be_reachable) }
   end
 
   describe '.exclude' do
