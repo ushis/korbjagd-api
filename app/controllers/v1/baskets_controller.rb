@@ -46,7 +46,7 @@ class V1::BasketsController < V1::ApplicationController
   # DELETE /v1/baskets/:id
   def destroy
     if @basket.destroy
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, @basket.errors
     end

@@ -33,7 +33,7 @@ class V1::PhotosController < V1::ApplicationController
   # DELETE /v1/baskets/:basket_id/photo
   def destroy
     if @photo.destroy
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, @photo.errors
     end

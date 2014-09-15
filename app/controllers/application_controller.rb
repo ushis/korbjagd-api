@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
   # Handles all OPTIONS requests
   def options
     headers['Access-Control-Max-Age'] = '1728000'
-    render json: nil, status: 204
+    head 204
   end
 
   private

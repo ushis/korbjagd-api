@@ -31,7 +31,7 @@ class V1::AvatarsController < V1::ApplicationController
   # DELETE /v1/users/:user_id/avatar
   def destroy
     if @avatar.destroy
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, @avatar.errors
     end

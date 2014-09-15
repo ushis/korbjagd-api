@@ -38,7 +38,7 @@ class V1::ProfilesController < V1::ApplicationController
   def destroy
     if @user.destroy
       GoodbyeMailJob.new.async.perform(@user)
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, @user.errors
     end

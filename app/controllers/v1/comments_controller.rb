@@ -45,7 +45,7 @@ class V1::CommentsController < V1::ApplicationController
   # DELETE /v1/baskets/:basket_id/comments/:id
   def destroy
     if @comment.destroy
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, @comment.errors
     end

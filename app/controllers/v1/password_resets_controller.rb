@@ -12,7 +12,7 @@ class V1::PasswordResetsController < V1::ApplicationController
   # PATCH /v1/password_reset
   def update
     if current_user.update_attributes(user_params)
-      render json: nil, status: 204
+      head 204
     else
       render_error 422, current_user.errors
     end
