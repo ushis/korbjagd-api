@@ -76,7 +76,7 @@ describe V1::AvatarsController do
           let(:params) do
             {
               avatar: {
-                image: 'invalid'
+                image: 'data:something;base64,invalid'
               }
             }
           end
