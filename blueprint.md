@@ -169,7 +169,7 @@ Resource represents a collection of sectors.
 
 # Group Basket
 
-## Basket Collection [/v1/{sector_id}/baskets]
+## Basket Collection [/v1/sectors/{sector_id}/baskets]
 
 Resource represents a collection of baskets located inside the given sector.
 
