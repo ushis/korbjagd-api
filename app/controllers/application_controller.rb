@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include ActionController::Serialization
   include Pundit
 
   rescue_from Pundit::NotAuthorizedError,         with: :forbidden

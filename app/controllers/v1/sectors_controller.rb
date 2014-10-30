@@ -8,7 +8,7 @@ class V1::SectorsController < V1::ApplicationController
     @sectors = policy_scope(Sector).order(:id).page(params[:page]).per(360)
 
     if stale?(@sectors, public: true)
-      render json: @sectors, meta_key: :params, meta: index_meta_data
+      render json: @sectors, meta_key: :params, params: index_meta_data
     end
   end
 
