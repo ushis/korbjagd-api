@@ -24,21 +24,21 @@ class User < ActiveRecord::Base
   # Returns a user found by auth token or nil
   def self.find_by_auth_token(token)
     find_by_id(AuthToken.from_s(token.to_s).id)
-  rescue JWT::DecodeError
+  rescue JWT::DecodeError, JWT::ExpiredSignature
     nil
   end
 
   # Returns a user found by password reset token or nil
   def self.find_by_password_reset_token(token)
     find_by_id(PasswordResetToken.from_s(token.to_s).id)
-  rescue JWT::DecodeError
+  rescue JWT::DecodeError, JWT::ExpiredSignature
     nil
   end
 
   # Returns a user found by profile delete token or nil
   def self.find_by_delete_token(token)
     find_by_id(ProfileDeleteToken.from_s(token.to_s).id)
-  rescue JWT::DecodeError
+  rescue JWT::DecodeError, JWT::ExpiredSignature
     nil
   end
 

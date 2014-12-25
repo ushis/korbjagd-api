@@ -129,20 +129,20 @@ describe ApplicationToken do
         context 'valid scope' do
           let(:scope) { dummy.scope }
 
-          it 'raises JWT::DecodeError' do
+          it 'raises JWT::ExpiredSignature' do
             expect {
               dummy.from_s(token_string)
-            }.to raise_error(JWT::DecodeError)
+            }.to raise_error(JWT::ExpiredSignature)
           end
         end
 
         context 'invalid scope' do
           let(:scope) { :invalid }
 
-          it 'raises JWT::DecodeError' do
+          it 'raises JWT::ExpiredSignature' do
             expect {
               dummy.from_s(token_string)
-            }.to raise_error(JWT::DecodeError)
+            }.to raise_error(JWT::ExpiredSignature)
           end
         end
       end

@@ -30,10 +30,9 @@ class ApplicationToken < Struct.new(:id, :exp, :scope)
 
   # Returns a token from a token string
   #
-  # Raises JWT::DecodeError on failure
+  # Raises JWT::DecodeError or JWT::ExpiredSignature on failure
   def self.from_s(token)
     decode(token).tap do |t|
-      raise JWT::DecodeError.new('Token expired') if t.expired?
       raise JWT::DecodeError.new('Token out of scope') if t.invalid_scope?
     end
   end
